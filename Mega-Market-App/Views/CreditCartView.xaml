@@ -1,0 +1,155 @@
+﻿<Page x:Class="Mega_Market_App.Views.CreditCartView"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:i="http://schemas.microsoft.com/xaml/behaviors"
+      xmlns:fa="http://schemas.fontawesome.io/icons/"
+      xmlns:local="clr-namespace:Mega_Market_App.Views"
+      xmlns:en="clr-namespace:Mega_Market_Data.Models.Enum;assembly=Mega-Market-Data"
+      mc:Ignorable="d" 
+      d:DesignHeight="510" d:DesignWidth="730"
+      Title="CreditCartView">
+
+    <Grid Background="{DynamicResource PrimaryBackgroundColor}">
+
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="250"/>
+        </Grid.ColumnDefinitions>
+
+        <Grid Grid.Column="0" >
+            <Grid.RowDefinitions>
+                <RowDefinition Height="50"></RowDefinition>
+                <RowDefinition Height="*" ></RowDefinition>
+            </Grid.RowDefinitions>
+
+            <TextBlock Foreground="Black" Padding="0 5 0 0" Text="Cart Details" FontSize="26" FontWeight="Bold" FontFamily="Sitka Heading" Margin="41,6,292,6" />
+
+            <ScrollViewer Grid.Row="1" Margin="0,0,59,0">
+                <ListView ItemsSource="{Binding Cards}" VerticalAlignment="Top">
+                    <ListView.ItemsPanel>
+                        <ItemsPanelTemplate>
+                            <WrapPanel Orientation="Horizontal" Width="420"/>
+                        </ItemsPanelTemplate>
+                    </ListView.ItemsPanel>
+
+                    <ListView.ItemTemplate>
+                        <DataTemplate>
+                            <Border Grid.Row="1" Style="{StaticResource cardBorder}" Margin="10,21,170,0">
+                                <Border.Background>
+                                    <LinearGradientBrush StartPoint="0,0" EndPoint="1,1">
+                                        <GradientStop Color="#D489FF" Offset="-0.2" />
+                                        <GradientStop Color="#7985FF" Offset="0.5" />
+                                        <GradientStop Color="#6AD8FD" Offset="1" />
+                                    </LinearGradientBrush>
+                                </Border.Background>
+
+                                <Grid>
+                                    <fa:ImageAwesome Icon="{Binding IconName}" HorizontalAlignment="Left" VerticalAlignment="Top" Foreground="White" Opacity="0.9" Width="25" Margin="15 8 0 0"/>
+                                    <fa:ImageAwesome Icon="CheckCircle" HorizontalAlignment="Right" VerticalAlignment="Top" Foreground="White" Width="25" Margin="0 5 53 0"/>
+                                    <TextBlock Text="Wally" FontWeight="Bold" Foreground="#FFFFFF" FontSize="12" HorizontalAlignment="Right" VerticalAlignment="Top" Margin="0 10 15 0"/>
+
+                                    <StackPanel Orientation="Horizontal" VerticalAlignment="Center" HorizontalAlignment="Center">
+                                        <TextBlock Text="{Binding Code}" FontSize="15" Margin="17 0" Foreground="#fcfcfc" />
+                                    </StackPanel>
+
+                                    <TextBlock Text="$" Style="{StaticResource textLabel}" FontSize="20" FontWeight="SemiBold" VerticalAlignment="Bottom" HorizontalAlignment="Left" />
+
+                                    <fa:ImageAwesome Icon="Close" HorizontalAlignment="Right" VerticalAlignment="Top" Foreground="Red" Width="15" Margin="0,108,9,0">
+                                        <i:Interaction.Triggers>
+                                            <i:EventTrigger EventName="MouseLeftButtonDown">
+                                                <i:InvokeCommandAction Command="{Binding DataContext.RemoveCardCommand, RelativeSource={RelativeSource AncestorType=ListView}}" 
+                                                CommandParameter="{Binding .}" />
+                                            </i:EventTrigger>
+                                        </i:Interaction.Triggers>
+                                    </fa:ImageAwesome>
+                                </Grid>
+                            </Border>
+                        </DataTemplate>
+                    </ListView.ItemTemplate>
+                </ListView>
+            </ScrollViewer>
+
+
+
+
+
+
+        </Grid>
+
+
+        <!--Card Section-->
+        <Grid Grid.Column="1" Background="#4B4643" Grid.Row="1">
+            <Grid.Effect>
+                <DropShadowEffect ShadowDepth="10" BlurRadius="50"/>
+            </Grid.Effect>
+
+            <!--Ellipses-->
+            <Border HorizontalAlignment="Left" VerticalAlignment="Top" Width="30" Height="130" Margin="-30 50 0 0" Background="#4B4643" CornerRadius="10 0 0 10" Padding="10 20 5 20">
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="*"/>
+                        <RowDefinition Height="*"/>
+                        <RowDefinition Height="*"/>
+                    </Grid.RowDefinitions>
+
+                    <Ellipse Width="8" Height="8" Fill="#7B7A78" Grid.Row="0"/>
+                    <Ellipse Width="8" Height="8" Fill="#F1C40F" Grid.Row="1"/>
+                    <Ellipse Width="8" Height="8" Fill="#7B7A78" Grid.Row="2"/>
+                </Grid>
+            </Border>
+
+            <!--Inputs-->
+            <StackPanel Margin="50,50,50,0" VerticalAlignment="Top" Height="368">
+                <TextBlock Text="Add Card" Foreground="#F1C40F" FontWeight="SemiBold" FontSize="24" Margin="0 0 0 70"/>
+
+                <TextBlock Text="Select Card Type" Style="{StaticResource titleText}"/>
+                <Grid Margin="0 15 0 30">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="*"/>
+                    </Grid.ColumnDefinitions>
+
+                    <!-- MasterCard -->
+                    <RadioButton GroupName="CardType" Margin="10"
+                     Command="{Binding CardTypeCommand}" 
+                     CommandParameter="CcMasterCard">
+                        <Image Source="pack://application:,,,/Mega-Market-App;component/Photos/mastercard.png" Width="50" Height="30"/>
+                    </RadioButton>
+
+                    <!-- Visa -->
+                    <RadioButton Grid.Column="1" GroupName="CardType" Margin="10" 
+                     Command="{Binding CardTypeCommand}" 
+                     CommandParameter="CcVisa">
+                        <Image Source="pack://application:,,,/Mega-Market-App;component/Photos/visa.png" Width="33" Height="30"/>
+                    </RadioButton>
+                </Grid>
+
+                <TextBlock Text="Card Number" Style="{StaticResource titleText}"/>
+                <TextBox Text="{Binding NewCard.Code}" Margin="0 5 0 30"/>
+
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="auto"/>
+                    </Grid.ColumnDefinitions>
+
+                    <StackPanel>
+                        <TextBlock Text="Expire Date" Style="{StaticResource titleText}"/>
+                        <TextBox Text="{Binding NewCard.EndYear}" Margin="0 5 0 0"/>
+                    </StackPanel>
+
+                    <StackPanel Grid.Column="1" Margin="30 0 0 0" Width="50">
+                        <TextBlock Text="CVV" Style="{StaticResource titleText}"/>
+                        <TextBox Text="{Binding NewCard.CVV}" Margin="0 5 0 0"/>
+                    </StackPanel>
+                </Grid>
+            </StackPanel>
+
+            <Button Command="{Binding AddCardCommand}" Content="Add Card" FontSize="20" Background="#F1C40F" BorderBrush="#F1C40F"  Height="60" Margin="10,440,10,0" VerticalAlignment="Top"/>
+        </Grid>
+
+
+    </Grid>
+</Page>

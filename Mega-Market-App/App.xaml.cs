@@ -1,0 +1,74 @@
+﻿using Mega_Market_App.Services.Mail;
+using Mega_Market_App.Services.Manager;
+using Mega_Market_App.Services.Navigate;
+using Mega_Market_App.ViewModels;
+using Mega_Market_App.Views;
+using Mega_Market_Data.Data;
+using Mega_Market_Data.Models.Concretes;
+using Mega_Market_Data.Repositoies;
+using SimpleInjector;
+using System.Windows;
+
+namespace Mega_Market_App;
+
+public partial class App : Application
+{
+    public static Container Container { get; set; } = new();
+    public App()
+    {
+        AddOtherServices();
+        AddViews();
+        AddViewModels();
+    }
+    private static void AddOtherServices()
+    {
+        Container.RegisterSingleton<INavigationServices, NavigationServices>();
+        Container.RegisterSingleton<MailServices>();
+        Container.RegisterSingleton<UserDbContext>();
+        Container.RegisterSingleton<MarketDbContext>();
+        Container.RegisterSingleton<BasketManager>();
+
+
+
+        Container.RegisterSingleton<IRepository<User, UserDbContext>, Repository<User, UserDbContext>>();
+        Container.RegisterSingleton<IRepository<Product, MarketDbContext>, Repository<Product, MarketDbContext>>();
+        Container.RegisterSingleton<IRepository<Category, MarketDbContext>, Repository<Category, MarketDbContext>>();
+    }
+
+    private static void AddViewModels()
+    {
+        Container.RegisterSingleton<MainViewModel>();
+        Container.RegisterSingleton<SplashViewModel>();
+        Container.RegisterSingleton<LoginViewModel>();
+        Container.RegisterSingleton<RegistherViewModel>();
+        Container.RegisterSingleton<DashBoradViewModel>();
+        Container.RegisterSingleton<MenyuViewModel>();
+        Container.RegisterSingleton<CategoriesViewModel>();
+        Container.RegisterSingleton<ProductsViewModel>();
+        Container.Register<BasketViewModel>();
+        Container.Register<CreditCartViewModel>();
+    }
+
+    private static void AddViews()
+    {
+        Container.RegisterSingleton<MainView>();
+        Container.RegisterSingleton<SplashView>();
+        Container.RegisterSingleton<LoginView>();
+        Container.RegisterSingleton<RegistherView>();
+        Container.RegisterSingleton<MenyuView>();
+        Container.RegisterSingleton<CategoriesView>();
+        Container.RegisterSingleton<ProductsView>();
+        Container.RegisterSingleton<DashBoardView>();
+        Container.RegisterSingleton<BasketView>();
+        Container.RegisterSingleton<CreditCartView>();
+    }
+
+    protected override void OnStartup(StartupEventArgs e)
+    {
+
+        var mainView = Container.GetInstance<MainView>();
+        mainView.DataContext = Container.GetInstance<MainViewModel>();
+        mainView.Show();
+        base.OnStartup(e);
+    }
+}

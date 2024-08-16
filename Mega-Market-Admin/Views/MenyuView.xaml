@@ -1,0 +1,106 @@
+﻿<Page x:Class="Mega_Market_Admin.Views.MenyuView"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:material ="http://materialdesigninxaml.net/winfx/xaml/themes"
+      xmlns:local="clr-namespace:Mega_Market_Admin.Views"
+      mc:Ignorable="d" 
+      d:DesignHeight="500" d:DesignWidth="900"
+      Title="MenyuView">
+
+    <Grid>
+
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="150"/>
+            <ColumnDefinition Width="*"/>
+        </Grid.ColumnDefinitions>
+
+        <Border CornerRadius="10 0 0 10">
+            <Border.Background>
+                <LinearGradientBrush StartPoint="0.5,0" EndPoint="0.5,1">
+                    <GradientStop Color="#223266" Offset="0" />
+                    <GradientStop Color="#27376B" Offset="1" />
+                </LinearGradientBrush>
+            </Border.Background>
+
+            <StackPanel>
+                <!--Username-->
+                <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" Margin="0 35 0 0">
+                    <Border CornerRadius="10" Width="30" Height="40">
+                        <Border.Background>
+                            <LinearGradientBrush StartPoint="0,0" EndPoint="1,2">
+                                <GradientStop Color="#7F7CF1" Offset="0" />
+                                <GradientStop Color="#D3B7FF" Offset="1" />
+                            </LinearGradientBrush>
+                        </Border.Background>
+
+                        <TextBlock Text="OH" Foreground="#ffffff" FontSize="18" FontWeight="SemiBold" TextAlignment="Center" VerticalAlignment="Center" Margin="0 0 0 2"/>
+                    </Border>
+
+                    <StackPanel Margin="10 0 0 0" VerticalAlignment="Center">
+                        <TextBlock Text="Orxan Hüseynov" FontSize="13" Margin="0 0 0 5" Foreground="#C2CFFF"/>
+                        <TextBlock Text="Beta 1.3" Foreground="#7788bf" FontSize="11"/>
+                    </StackPanel>
+                </StackPanel>
+
+                <Separator Height="0.8" Background="#46558a" Margin="20 30 20 30"/>
+
+
+                <Button Background="#BCCAF1" BorderBrush="#BCCAF1" Margin="0 0" Height="40" Width="auto" Command="{Binding DashBoardCommand}" >
+                    <StackPanel Orientation="Horizontal" Width="138" Height="35" Margin="0 0 0 0">
+                        <material:PackIcon Kind="Home" Width="25" Height="25" VerticalAlignment="Center" Margin="0 0 0 0"/>
+                        <TextBlock  Text="DashBoard" FontSize="15" Padding="10 7"/>
+                    </StackPanel>
+                </Button>
+                <Button Background="#BCCAF1" BorderBrush="#BCCAF1" Margin="0 2" Height="40" Width="auto" >
+                    <StackPanel Orientation="Horizontal" Width="133" Height="35" Margin="0 0">
+                        <material:PackIcon Kind="Sms" Width="25" Height="25" VerticalAlignment="Center" Margin="0 0 0 0"/>
+                        <TextBlock  Text="Message" FontSize="15" Padding="10 7"/>
+                    </StackPanel>
+                </Button>
+                <Button Background="#BCCAF1" BorderBrush="#BCCAF1" Margin="0 0" Height="40" Width="auto" Command="{Binding CategoriesCommand}" >
+                    <StackPanel Orientation="Horizontal" Width="133" Height="35" Margin="0 0">
+                        <material:PackIcon Kind="Category" Width="25" Height="25" VerticalAlignment="Center" Margin="0 0 0 0"/>
+                        <TextBlock  Text="Categories" FontSize="15" Padding="10 7"/>
+                    </StackPanel>
+                </Button>
+                <Button Background="#BCCAF1" BorderBrush="#BCCAF1" Margin="0 2" Height="40" Width="auto" Command="{Binding ProductsCommand}" >
+                    <StackPanel Orientation="Horizontal" Width="133" Height="35" Margin="0 0">
+                        <material:PackIcon Kind="food" Width="25" Height="25" VerticalAlignment="Center" Margin="0 0 0 0"/>
+                        <TextBlock  Text="Products" FontSize="15" Padding="10 7"/>
+                    </StackPanel>
+                </Button>
+                <Button Background="#BCCAF1" BorderBrush="#BCCAF1" Margin="0 0" Height="40" Width="auto" >
+                    <StackPanel Orientation="Horizontal" Width="133" Height="35" Margin="0 0">
+                        <material:PackIcon Kind="Avalanche" Width="25" Height="25" VerticalAlignment="Center" Margin="0 0 0 0"/>
+                        <TextBlock  Text="Statistics" FontSize="15" Padding="10 7"/>
+                    </StackPanel>
+                </Button>
+                <Button Background="#BCCAF1" BorderBrush="#BCCAF1" Margin="0 2" Height="40" Width="auto" >
+                    <StackPanel Orientation="Horizontal" Width="133" Height="35" Margin="0 0">
+                        <material:PackIcon Kind="Motorbike" Width="25" Height="25" VerticalAlignment="Center" Margin="0 0 0 0"/>
+                        <TextBlock  Text="Kargo" FontSize="15" Padding="10 7"/>
+                    </StackPanel>
+                </Button>
+                <Button Background="#BCCAF1" BorderBrush="#BCCAF1" Margin="0 0" Height="40" Width="auto" >
+                    <StackPanel Orientation="Horizontal" Width="133" Height="35" Margin="0 0">
+                        <material:PackIcon Kind="Settings" Width="25" Height="25" VerticalAlignment="Center" Margin="0 0 0 0"/>
+                        <TextBlock  Text="Settings" FontSize="15" Padding="10 7"/>
+                    </StackPanel>
+                </Button>
+                <Button Background="Red" BorderBrush="Red" Margin="0 4" Height="40" Width="auto" Command="{Binding ExitCommand}" >
+                    <StackPanel Orientation="Horizontal" Width="133" Height="35" Margin="0 0">
+                        <material:PackIcon Kind="ExitRun" Width="25" Height="25" VerticalAlignment="Center" Margin="0 0 0 0"/>
+                        <TextBlock  Text="Log Out" FontSize="15" Padding="10 7"/>
+                    </StackPanel>
+                </Button>
+
+            </StackPanel>
+        </Border>
+
+        <Frame Content="{Binding CurrentPage2}" Grid.Column="1" Width="750" Height="500" NavigationUIVisibility="Hidden" ></Frame>
+
+
+    </Grid>
+</Page>

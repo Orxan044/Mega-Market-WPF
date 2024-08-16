@@ -1,0 +1,54 @@
+﻿<Page x:Class="Mega_Market_Admin.Views.LoginView"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:material ="http://materialdesigninxaml.net/winfx/xaml/themes"
+      xmlns:local="clr-namespace:Mega_Market_Admin.Views"
+      mc:Ignorable="d" 
+      d:DesignHeight="500" d:DesignWidth="900"
+      Title="LoginView">
+
+    <Grid Background="White">
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="*" />
+            <ColumnDefinition Width="1.5*" />
+        </Grid.ColumnDefinitions>
+
+        <Border CornerRadius="10 0 0 10">
+            <Border.Background>
+                <LinearGradientBrush StartPoint="0,0" EndPoint="1,1">
+                    <GradientStop Color="#3AADA1" Offset="0" />
+                    <GradientStop Color="#ff920f" Offset="1" />
+                </LinearGradientBrush>
+            </Border.Background>
+
+            <Grid>
+
+
+                <StackPanel VerticalAlignment="Top">
+                    <Image Height="250" Source="pack://application:,,,/Mega-Market-Admin;component/Photos/mLogo.png" Margin="0 50" ></Image>
+                    <TextBlock  Text="Mega Market" FontFamily="Century Gothic" FontSize="36" FontWeight="Bold" TextAlignment="Center" Margin="0 -40" />
+
+                </StackPanel>
+            </Grid>
+        </Border>
+
+        <Border Background="#FFFFFF" Grid.Column="1" CornerRadius="0 10 10 0">
+            <StackPanel>
+                <Button Margin="0 0"  HorizontalAlignment="Right"  Width="35" Height="38" Background="{x:Null}" BorderBrush="{x:Null}" Padding="0" Foreground="Gray" Command="{Binding CloseCommand}">
+                    <material:PackIcon Kind="Close" HorizontalAlignment="Center" Height="38" VerticalAlignment="Center" Width="30"/>
+                </Button>
+                <material:PackIcon Kind="User" HorizontalAlignment="Center" Height="100" VerticalAlignment="Center" Width="100"/>
+                <TextBlock Foreground="#ff920f"  Text="Sign in Admin" Margin="0 20" FontSize="36" FontWeight="Bold" TextAlignment="Center" />
+
+                <TextBlock Text="or use your name account:" FontSize="13" FontFamily="Leelawadee UI" Foreground="DarkGray" HorizontalAlignment="Center"/>
+                <TextBox Text="{Binding AdminLogin.AccountName}" Width="340" Margin="2 5" FontSize="15" BorderBrush="#C5C8CC" material:HintAssist.FloatingOffset="0,-20" material:HintAssist.Hint="Account Name" Style="{StaticResource MaterialDesignFloatingHintTextBox}" />
+                <TextBox Text="{Binding AdminLogin.AccountPassword}" Width="340" Margin="2 15" FontSize="15" BorderBrush="#C5C8CC" material:HintAssist.FloatingOffset="0,-20" material:HintAssist.Hint="Password" Style="{StaticResource MaterialDesignFloatingHintTextBox}" />
+
+                <Button Background="#ff920f" BorderBrush="#ff920f" Content="Sign In" Width="150" Margin="0 15" FontSize="18" Command="{Binding SignInCommand}" />
+            </StackPanel>
+        </Border>
+
+    </Grid>
+</Page>

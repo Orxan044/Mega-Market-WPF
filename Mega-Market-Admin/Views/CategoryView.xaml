@@ -1,0 +1,81 @@
+﻿<Page x:Class="Mega_Market_Admin.Views.CategoryView"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:material="http://materialdesigninxaml.net/winfx/xaml/themes"
+      xmlns:local="clr-namespace:Mega_Market_Admin.Views"
+      mc:Ignorable="d" 
+      d:DesignHeight="500" d:DesignWidth="750"
+      Title="CategoryView">
+
+    <Grid Background="#5969A2">
+
+        <TextBlock FontSize="26" Foreground="#CCD7FF" Margin="13,17,0,445" Text="Categories" HorizontalAlignment="Left" Width="126"/>
+
+        <!--<material:Badged Badge="{material:PackIcon Kind=Add}" 
+                    BadgeBackground="LightGreen" RenderTransformOrigin="0.473,-0.04" Width="385" >
+            <Button BorderBrush="Transparent" Foreground="White" FontWeight="Bold" Content="ADD CATEGORY"
+                        Command="{Binding AddDriverClickCommand}" Width="174"
+                        Style="{StaticResource MaterialDesignRaisedSecondaryButton}"/>
+        </material:Badged>-->
+        <!--<Button Content="Add Category" Style="{StaticResource topMenuButton }" Background="Green"  Foreground="#ffffff" Width="120" Margin="610,52,20,418"/>-->
+
+
+        <material:Badged Badge="{material:PackIcon Kind=AddBold}" 
+                    HorizontalAlignment="Right" VerticalAlignment="Top"
+                    BadgeBackground="LightGreen" Margin="20 15">
+            <Button BorderBrush="Transparent" Foreground="White" FontWeight="Bold" Content="ADD CATEGORY"
+                        Command="{Binding AddCategoryCommand}"
+                        Style="{StaticResource MaterialDesignRaisedSecondaryButton}"/>
+        </material:Badged>
+
+        <TextBox x:Name="txbSearch" HorizontalAlignment="Left" VerticalAlignment="Top"
+                     Style="{StaticResource MaterialDesignTextBoxBase}" VerticalContentAlignment="Center"
+                     Width="334" Height="33" Margin="13,87,0,0" 
+                     BorderBrush="#769DF7" Background="White" FontSize="14"
+                     material:TextFieldAssist.HasClearButton="True"
+                     material:TextFieldAssist.UnderlineCornerRadius="15" Grid.ColumnSpan="2"
+                     Text="{Binding SearchText, UpdateSourceTrigger=PropertyChanged}">
+            <material:HintAssist.Hint>
+                <StackPanel Orientation="Horizontal">
+                    <TextBlock Text="Search Category (Name,Id)" Padding="5 0 0 0" VerticalAlignment="Center"/>
+                </StackPanel>
+            </material:HintAssist.Hint>
+        </TextBox>
+
+        <ListView FontSize="18" Foreground="Black" ItemsSource="{Binding Categories}" Width="375" Height="380" VerticalAlignment="Bottom" HorizontalAlignment="Left" x:Name="ListView1">
+            <ListView.View>
+                <GridView>
+                    <GridViewColumn  Header="Id" DisplayMemberBinding="{Binding Id}" Width="80"></GridViewColumn>
+
+                    <GridViewColumn Header="Name" DisplayMemberBinding="{Binding Name}" Width="auto"></GridViewColumn>
+
+                    <GridViewColumn Header="Show" Width="120">
+                        <GridViewColumn.CellTemplate>
+                            <DataTemplate>
+                                <Button Content="Show" Background="Yellow" BorderBrush="Yellow" Command="{Binding ElementName=ListView1, Path=DataContext.ShowCategoryCommand}" CommandParameter="{Binding Id}" Width="80" Height="25"/>
+                            </DataTemplate>
+                        </GridViewColumn.CellTemplate>
+                    </GridViewColumn>
+                </GridView>
+            </ListView.View>
+        </ListView>
+
+
+        <Grid Height="400" Width="375" VerticalAlignment="Bottom" HorizontalAlignment="Right" Grid.Column="1" >
+            <TextBlock Foreground="#CCD7FF" VerticalAlignment="Top" HorizontalAlignment="Center" Text="Category Detalis" Margin="92,10,92,350" FontSize="26" FontWeight="SemiBold" FontFamily="Sitka Heading"/>
+
+            <Image Source="{Binding SelectedCategory.ImagePath}" Height="180" Width="180" Margin="98,55,97,165"></Image>
+            <TextBox Text="{Binding SelectedCategory.ImagePath}" Width="340" Margin="18,253,17,104" FontSize="15" BorderBrush="#C5C8CC" material:HintAssist.FloatingOffset="0,-20" material:HintAssist.Hint="Image Path" Style="{StaticResource MaterialDesignFloatingHintTextBox}" />
+            <TextBox Text="{Binding SelectedCategory.Name}" Width="340" Margin="18,306,17,51" FontSize="15" BorderBrush="#C5C8CC" material:HintAssist.FloatingOffset="0,-20" material:HintAssist.Hint="Name" Style="{StaticResource MaterialDesignFloatingHintTextBox}" />
+
+            <Button Background="Red" BorderBrush="Red" Content="Delete Product" FontSize="18" Width="200" Margin="88,360,87,8" Command="{Binding DeleteCategoryCommand}" ></Button>
+        </Grid>
+
+
+
+
+
+    </Grid>
+</Page>

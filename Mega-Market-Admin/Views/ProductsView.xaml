@@ -1,0 +1,66 @@
+﻿<Page x:Class="Mega_Market_Admin.Views.ProductsView"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:material="http://materialdesigninxaml.net/winfx/xaml/themes"
+      xmlns:local="clr-namespace:Mega_Market_Admin.Views"
+      mc:Ignorable="d" 
+      d:DesignHeight="500" d:DesignWidth="750"
+      Title="ProductsView">
+
+    <Grid Background="#41518F" >
+
+        <TextBlock FontSize="26" Foreground="#CCD7FF" Margin="28,35,0,428" Text="Products" HorizontalAlignment="Left"/>
+
+        <material:Badged Badge="{material:PackIcon Kind=AddBold}" 
+                   
+                   BadgeBackground="LightGreen" Margin="580,40,0,0" Width="139">
+            <Button BorderBrush="Transparent" Foreground="White" FontWeight="Bold" Content="ADD PRODUCT"
+                       Command="{Binding AddProductCommand}"
+                       Style="{StaticResource MaterialDesignRaisedSecondaryButton}" Width="141"/>
+        </material:Badged>
+
+        <TextBox x:Name="txbSearch" HorizontalAlignment="Left" VerticalAlignment="Top"
+                    Style="{StaticResource MaterialDesignTextBoxBase}" VerticalContentAlignment="Center"
+                    Width="334" Height="33" Margin="28,112,0,0" 
+                    BorderBrush="#769DF7" Background="White" FontSize="14"
+                    material:TextFieldAssist.HasClearButton="True"
+                    material:TextFieldAssist.UnderlineCornerRadius="15"
+                    Text="{Binding SearchText, UpdateSourceTrigger=PropertyChanged}">
+            <material:HintAssist.Hint>
+                <StackPanel Orientation="Horizontal">
+                    <TextBlock Text="Search Product (Name,Id)" Padding="5 0 0 0" VerticalAlignment="Center"/>
+                </StackPanel>
+            </material:HintAssist.Hint>
+        </TextBox>
+
+        <ListView x:Name="ListView1" FontSize="18" Foreground="Black" ItemsSource="{Binding Products}" Width="750" Height="350" VerticalAlignment="Bottom">
+            <ListView.View>
+                <GridView>
+                    <GridViewColumn  Header="Id" DisplayMemberBinding="{Binding Id}" Width="80"></GridViewColumn>
+                    <GridViewColumn Header="Name" DisplayMemberBinding="{Binding Name}" Width="auto"></GridViewColumn>
+
+                    <!--<GridViewColumn  Header="Description" DisplayMemberBinding="{Binding Description}" Width="auto"></GridViewColumn>-->
+                    <GridViewColumn  Header="Category Id" DisplayMemberBinding="{Binding CategoryId}" Width="auto"></GridViewColumn>
+
+                    <GridViewColumn  Header="Quantity" DisplayMemberBinding="{Binding Quantity}" Width="auto"></GridViewColumn>
+                    <GridViewColumn  Header="Special" DisplayMemberBinding="{Binding IsSpecial}" Width="auto"></GridViewColumn>
+
+
+                    <GridViewColumn Header="Show" Width="auto">
+                        <GridViewColumn.CellTemplate>
+                            <DataTemplate>
+                                <Button Content="Show" Background="Yellow" BorderBrush="Yellow" Command="{Binding ElementName=ListView1, Path=DataContext.ShowProductCommand}" CommandParameter="{Binding Id}" Width="80" Height="30"/>
+                            </DataTemplate>
+                        </GridViewColumn.CellTemplate>
+                    </GridViewColumn>
+                </GridView>
+            </ListView.View>
+        </ListView>
+
+
+
+
+    </Grid>
+</Page>

@@ -1,0 +1,250 @@
+﻿<Page x:Class="Mega_Market_App.Views.BasketView"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+      xmlns:material ="http://materialdesigninxaml.net/winfx/xaml/themes"
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:local="clr-namespace:Mega_Market_App.Views"
+      mc:Ignorable="d" 
+      d:DesignHeight="510" d:DesignWidth="730"
+      Title="BasketView">
+
+    <Page.Resources>
+        <Style x:Key="PriceTextBlockStyle" TargetType="TextBlock">
+            <Style.Triggers>
+                <DataTrigger Binding="{Binding IsSpecial}" Value="True">
+                    <Setter Property="Foreground" Value="Red"/>
+                </DataTrigger>
+                <DataTrigger Binding="{Binding IsSpecial}" Value="False">
+                    <Setter Property="Foreground" Value="Black"/>
+                </DataTrigger>
+            </Style.Triggers>
+        </Style>
+    </Page.Resources>
+
+    <Grid Background="{DynamicResource PrimaryBackgroundColor}">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="50"></RowDefinition>
+            <RowDefinition Height="*" ></RowDefinition>
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="*" ></ColumnDefinition>
+            <ColumnDefinition Width="300" ></ColumnDefinition>
+        </Grid.ColumnDefinitions>
+
+        <StackPanel Orientation="Horizontal" Margin="24,0,283,5">
+            <Image Source="pack://application:,,,/Mega-Market-App;component/Photos/basketIcon.png"
+                           HorizontalAlignment="Left" Height="30"></Image>
+            <TextBlock Foreground="Black" Padding="10 9 0 0" Text="Basket" FontSize="26" FontWeight="Bold" FontFamily="Sitka Heading" Width="93"/>
+
+        </StackPanel>
+
+
+        <ScrollViewer Grid.Row="1">
+            <ListView x:Name="ListView1" Grid.Row="1" ItemsSource="{Binding ProductItems}" VerticalAlignment="Top">
+                <ListView.ItemsPanel>
+                    <ItemsPanelTemplate>
+                        <WrapPanel Orientation="Horizontal" Width="430"/>
+                    </ItemsPanelTemplate>
+                </ListView.ItemsPanel>
+
+                <ListView.ItemTemplate>
+                    <DataTemplate>
+                        <Border Grid.Row="1" BorderBrush="Gray" Height="100" Width="400" BorderThickness="1" Background="White" CornerRadius="5" >
+                            <Grid>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="Auto" MinWidth ="100" />
+                                    <ColumnDefinition Width="Auto" MinWidth ="164" />
+                                    <ColumnDefinition Width="Auto" MinWidth="136" />
+                                </Grid.ColumnDefinitions>
+
+                                <Image Grid.Column="0" Source="{Binding Product.ImagePath}" Stretch="Uniform" Margin="0,9,0,9" />
+
+                                <TextBlock Grid.Column="1"
+                                    TextTrimming="None" 
+                                    VerticalAlignment="Top" HorizontalAlignment="Center"
+                                    FontSize="15" Height="26" Width="144" Margin="0,21,0,0">
+                                    <TextBlock.Text>
+                                        <MultiBinding StringFormat="{}  {0},{1}">
+                                            <Binding Path="Product.Name" />
+                                            <Binding Path="Product.Description" />
+                                        </MultiBinding>
+                                    </TextBlock.Text>
+                                </TextBlock>
+
+                                <TextBlock Text="{Binding Product.Price, StringFormat='  {0} ₼'}" 
+                                  Grid.Column="1" Margin="0,61,0,0"
+                                  TextWrapping="Wrap" 
+                                  TextTrimming="CharacterEllipsis" 
+                                  VerticalAlignment="Top" 
+                                  HorizontalAlignment="Right"
+                                  Padding="5 0 0 0"
+                                  FontSize="20" Height="26" Width="154"
+                                  Style="{StaticResource PriceTextBlockStyle}"/>
+
+                                <StackPanel Grid.Column="2" Orientation="Horizontal" VerticalAlignment="Top" HorizontalAlignment="Left" Height="40" Width="95" Margin="10,33,0,0">
+                                    <Button Padding="0 0 0 0" FontSize="20" FontWeight="Bold" Content="-" Background="Transparent" BorderBrush="Transparent" Width="28" Height="36" Margin="5,0,0,0" 
+                                        Command="{Binding ElementName=ListView1, Path=DataContext.DecrementCommand}" CommandParameter="{Binding .}"/>
+
+                                    <TextBox Width="25" FontSize="18" 
+                                         HorizontalAlignment="Center" Padding="0 0 0 0"
+                                         VerticalAlignment="Center" IsReadOnly="True"
+                                         Text="{Binding ProductCount, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True}"
+                                         />
+
+                                    <Button FontSize="20" Padding="0 0 0 0" BorderBrush="Transparent" Background="Transparent"  Content="+" Width="30" Height="35" Margin="5,0,0,0"
+                                            Command="{Binding ElementName=ListView1, Path=DataContext.IncrementCommand}" CommandParameter="{Binding .}"/>
+                                </StackPanel>
+
+                                <Button Grid.Column="2"   HorizontalAlignment="Right"  Width="35" Background="{x:Null}" BorderBrush="{x:Null}" Padding="0" Foreground="Gray" 
+                                        Command="{Binding ElementName=ListView1, Path=DataContext.DeleteCommand}" CommandParameter="{Binding .}" Margin="0,2,15,64">
+                                    <material:PackIcon Kind="Close" HorizontalAlignment="Center" Height="19" VerticalAlignment="Center" Width="30"/>
+                                </Button>
+
+                            </Grid>
+                        </Border>
+                    </DataTemplate>
+                </ListView.ItemTemplate>
+            </ListView>
+        </ScrollViewer>
+
+        <!--<Border Grid.Row="1" BorderBrush="Gray" Height="100" Width="400" BorderThickness="1" Background="White" CornerRadius="5" >
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="Auto" MinWidth ="100" />
+                    <ColumnDefinition Width="Auto" MinWidth ="164" />
+                    <ColumnDefinition Width="Auto" MinWidth="136" />
+                </Grid.ColumnDefinitions>
+
+                <Image Grid.Column="0" Source="{Binding ImagePath}" Stretch="Uniform" Margin="0,9,0,9" />
+
+                <TextBlock Grid.Column="1"
+                                    TextTrimming="None" 
+                                    VerticalAlignment="Top" HorizontalAlignment="Center"
+                                    FontSize="15" Height="26" Width="144" Margin="0,21,0,0">
+                    <TextBlock.Text>
+                        <MultiBinding StringFormat="{}  {0},{1}">
+                            <Binding Path="Name" />
+                            <Binding Path="Description" />
+                        </MultiBinding>
+                    </TextBlock.Text>
+                </TextBlock>
+
+                <TextBlock Text="{Binding Price, StringFormat='  {0} ₼'}" 
+                                  Grid.Column="1" Margin="0,61,0,0"
+                                  TextWrapping="Wrap" 
+                                  TextTrimming="CharacterEllipsis" 
+                                  VerticalAlignment="Top" 
+                                  HorizontalAlignment="Right"
+                                  Padding="5 0 0 0"
+                                  FontSize="20" Height="26" Width="154"/>
+
+                <StackPanel Grid.Column="2" Orientation="Horizontal" VerticalAlignment="Top" HorizontalAlignment="Left" Height="40" Width="95" Margin="10,33,0,0">
+                    <Button Padding="0 0 0 0" FontSize="20" FontWeight="Bold" Content="-" Background="Transparent" BorderBrush="Transparent" Width="28" Height="36" Margin="5,0,0,0"  Command="{Binding DecrementCommand}"
+                                        CommandParameter="{Binding SelectedProduct}" />
+
+                    <TextBox Width="25"
+                                         HorizontalAlignment="Center"
+                                         VerticalAlignment="Center"
+                                         Text="{Binding Value, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True}"
+                                         />
+
+                    <Button FontSize="20" Padding="0 0 0 0" BorderBrush="Transparent" Background="Transparent"  Content="+" Width="30" Height="35" Margin="5,0,0,0" Command="{Binding IncrementCommand}"
+                                        CommandParameter="{Binding SelectedProduct}" />
+                </StackPanel>
+
+                <Button Grid.Column="2"   HorizontalAlignment="Right"  Width="35" Background="{x:Null}" BorderBrush="{x:Null}" Padding="0" Foreground="Gray" Command="{Binding DeleteCommand}" Margin="0,2,10,64">
+                    <material:PackIcon Kind="Close" HorizontalAlignment="Center" Height="19" VerticalAlignment="Center" Width="30"/>
+                </Button>
+
+            </Grid>
+        </Border>-->
+
+
+
+
+
+        <Grid Width="250" Grid.Column="1" Grid.Row="1" Background="White" Margin="25,10,25,280">
+
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="19*"></ColumnDefinition>
+                <ColumnDefinition Width="6*"></ColumnDefinition>
+            </Grid.ColumnDefinitions>
+
+            <StackPanel>
+                <TextBlock Margin="10 10 10 10" Text="Price Of The Order" FontWeight="Bold" FontSize="18" Padding="0 0 0 0" Width="172"  ></TextBlock>
+                <Separator Margin="0 0 0 0" ></Separator>
+                <TextBlock Margin="10 10 20 10"  Text="{Binding OrderCount, StringFormat=' Order amount ({0} items):'}"  FontSize="13" Padding="0 0 0 0" Width="174" Height="20"  ></TextBlock>
+                <TextBlock Margin="15 0 50 10" Text="Discount:"  FontSize="13" Padding="0 0 0 0" Width="173" Height="20"  ></TextBlock>
+                <Separator Margin="0 0 0 0" ></Separator>
+                <TextBlock Margin="15 15 50 10" Text="Total Payment:" FontWeight="Bold" FontSize="18" Padding="0 0 0 0"  ></TextBlock>
+            </StackPanel>
+
+            <StackPanel Grid.Column="1" >
+                <Separator Margin="0 43.94 0 0" ></Separator>
+                <TextBlock Text="{Binding ProductTotalPayment, StringFormat='  {0} ₼'}"  Margin="10 10 0 0" Height="22" ></TextBlock>
+                <TextBlock Text="{Binding Discount, StringFormat='  {0} ₼'}" Foreground="Red"  Margin="16 6 0 0" Height="22" ></TextBlock>
+                <Separator Margin="0 10 0 0" ></Separator>
+                <TextBlock Text="{Binding TotalPayment, StringFormat='  {0} ₼'}" FontSize="15" FontWeight="Bold" Padding="0 0 0 0"  Margin="0 12 0 0" Height="27" Width="61" ></TextBlock>
+            </StackPanel>
+        </Grid>
+
+        <Button Grid.Column="1" Grid.Row="1" FontSize="18" Width="250" Content="Confirm Cart" Foreground="White" FontWeight="Bold" Margin="25,190,25,238" ></Button>
+
+        <!--<Border Grid.Row="1" BorderBrush="Gray" Height="80" Width="430" BorderThickness="1" Background="White" CornerRadius="5" >
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="Auto" MinWidth ="100" />
+                    <ColumnDefinition Width="Auto" MinWidth ="100" />
+                    <ColumnDefinition Width="Auto" MinWidth ="100" />
+                    <ColumnDefinition Width="Auto" MinWidth="100" />
+                </Grid.ColumnDefinitions>
+
+                <Image Grid.Column="0" Source="{Binding ImagePath}" Stretch="Uniform" Height="80" />
+
+                <TextBlock Grid.Column="1"
+                  TextWrapping="Wrap" 
+                  TextTrimming="CharacterEllipsis" 
+                  VerticalAlignment="Center" 
+                  HorizontalAlignment="Center" Margin="0 0 0 25"
+                  FontSize="15" Height="26" Width="100">
+                    <TextBlock.Text>
+                        <MultiBinding StringFormat="{}  {0}, {1}">
+                            <Binding Path="Name" />
+                            <Binding Path="Description" />
+                        </MultiBinding>
+                    </TextBlock.Text>
+                </TextBlock>
+
+                <TextBlock Text="{Binding Price, StringFormat='  {0} ₼'}" 
+                      Grid.Column="1" Margin="0 35 0 0"
+                      TextWrapping="Wrap" 
+                      TextTrimming="CharacterEllipsis" 
+                      VerticalAlignment="Center" 
+                      HorizontalAlignment="Center"
+                      Padding="5 0 0 0"
+                      FontSize="20" Height="26" Width="100"
+                      />
+
+                <StackPanel Grid.Column="3" Orientation="Horizontal" VerticalAlignment="Center" HorizontalAlignment="Center">
+                    <Button Padding="0 0 0 0" FontSize="15" FontWeight="Bold" Content="-" Background="Transparent" BorderBrush="Transparent" Width="20" Height="20" Margin="5,0,0,0" Command="{Binding DecrementCommand}" />
+                    <TextBox Width="20"
+                         HorizontalAlignment="Center"
+                         VerticalAlignment="Center"
+                         Text="{Binding Value, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True}"
+                         PreviewTextInput="TextBox_PreviewTextInput" />
+                    <Button Padding="0 0 0 0" BorderBrush="Transparent" Background="Transparent"  Content="+" Width="20" Height="20" Margin="5,0,0,0" Command="{Binding IncrementCommand}" />
+                </StackPanel>
+
+                <Button Grid.Column="3" Margin="0,0,-28,46"  HorizontalAlignment="Right"  Width="35" Background="{x:Null}" BorderBrush="{x:Null}" Padding="0" Foreground="Gray" Command="{Binding DeleteCommand}">
+                    <material:PackIcon Kind="Close" HorizontalAlignment="Center" Height="19" VerticalAlignment="Center" Width="30"/>
+                </Button>
+
+            </Grid>
+        </Border>-->
+
+
+
+
+    </Grid>
+</Page>
