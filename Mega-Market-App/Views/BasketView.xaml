@@ -44,7 +44,7 @@
             <ListView x:Name="ListView1" Grid.Row="1" ItemsSource="{Binding ProductItems}" VerticalAlignment="Top">
                 <ListView.ItemsPanel>
                     <ItemsPanelTemplate>
-                        <WrapPanel Orientation="Horizontal" Width="430"/>
+                        <WrapPanel Orientation="Horizontal" Width="404"/>
                     </ItemsPanelTemplate>
                 </ListView.ItemsPanel>
 
@@ -189,59 +189,25 @@
             </StackPanel>
         </Grid>
 
-        <Button Grid.Column="1" Grid.Row="1" FontSize="18" Width="250" Content="Confirm Cart" Foreground="White" FontWeight="Bold" Margin="25,190,25,238" ></Button>
+        <Grid Width="250" Grid.Column="1" Grid.Row="1" Background="White" Margin="25,197,25,160">
+            <Button Command="{Binding GetCardsCommand}"  Background="Transparent" BorderBrush="Transparent" Margin="187,0,0,76"  >
+                <TextBlock Text="cards" 
+                   FontSize="12" 
+                   FontWeight="Bold" 
+                   Foreground="Red" 
+                   HorizontalAlignment="Left" 
+                   VerticalAlignment="Top"
+                   TextDecorations="{x:Static TextDecorations.Underline}" />
+            </Button>
+            <StackPanel>
+                <TextBlock Margin="15 15 50 10" Text="Selected Card:" FontWeight="Bold" FontSize="18" Padding="0 0 0 0"  ></TextBlock>
+                <ComboBox ItemsSource="{Binding CardsComboBox}"  SelectedItem="{Binding SelectedCard}"  Width="219" FontSize="15" Height="46" material:HintAssist.Hint="Selected Card" material:HintAssist.FloatingOffset="0,-20"   >
+                </ComboBox>
+            </StackPanel>
 
-        <!--<Border Grid.Row="1" BorderBrush="Gray" Height="80" Width="430" BorderThickness="1" Background="White" CornerRadius="5" >
-            <Grid>
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="Auto" MinWidth ="100" />
-                    <ColumnDefinition Width="Auto" MinWidth ="100" />
-                    <ColumnDefinition Width="Auto" MinWidth ="100" />
-                    <ColumnDefinition Width="Auto" MinWidth="100" />
-                </Grid.ColumnDefinitions>
+        </Grid>
 
-                <Image Grid.Column="0" Source="{Binding ImagePath}" Stretch="Uniform" Height="80" />
-
-                <TextBlock Grid.Column="1"
-                  TextWrapping="Wrap" 
-                  TextTrimming="CharacterEllipsis" 
-                  VerticalAlignment="Center" 
-                  HorizontalAlignment="Center" Margin="0 0 0 25"
-                  FontSize="15" Height="26" Width="100">
-                    <TextBlock.Text>
-                        <MultiBinding StringFormat="{}  {0}, {1}">
-                            <Binding Path="Name" />
-                            <Binding Path="Description" />
-                        </MultiBinding>
-                    </TextBlock.Text>
-                </TextBlock>
-
-                <TextBlock Text="{Binding Price, StringFormat='  {0} ₼'}" 
-                      Grid.Column="1" Margin="0 35 0 0"
-                      TextWrapping="Wrap" 
-                      TextTrimming="CharacterEllipsis" 
-                      VerticalAlignment="Center" 
-                      HorizontalAlignment="Center"
-                      Padding="5 0 0 0"
-                      FontSize="20" Height="26" Width="100"
-                      />
-
-                <StackPanel Grid.Column="3" Orientation="Horizontal" VerticalAlignment="Center" HorizontalAlignment="Center">
-                    <Button Padding="0 0 0 0" FontSize="15" FontWeight="Bold" Content="-" Background="Transparent" BorderBrush="Transparent" Width="20" Height="20" Margin="5,0,0,0" Command="{Binding DecrementCommand}" />
-                    <TextBox Width="20"
-                         HorizontalAlignment="Center"
-                         VerticalAlignment="Center"
-                         Text="{Binding Value, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True}"
-                         PreviewTextInput="TextBox_PreviewTextInput" />
-                    <Button Padding="0 0 0 0" BorderBrush="Transparent" Background="Transparent"  Content="+" Width="20" Height="20" Margin="5,0,0,0" Command="{Binding IncrementCommand}" />
-                </StackPanel>
-
-                <Button Grid.Column="3" Margin="0,0,-28,46"  HorizontalAlignment="Right"  Width="35" Background="{x:Null}" BorderBrush="{x:Null}" Padding="0" Foreground="Gray" Command="{Binding DeleteCommand}">
-                    <material:PackIcon Kind="Close" HorizontalAlignment="Center" Height="19" VerticalAlignment="Center" Width="30"/>
-                </Button>
-
-            </Grid>
-        </Border>-->
+        <Button Command="{Binding BuyProductsCommand}" Grid.Column="1" Grid.Row="1" FontSize="18" Width="250" Content="Buy Products" Foreground="White" FontWeight="Bold" Margin="25,311,25,117" ></Button>
 
 
 

@@ -26,12 +26,6 @@ public class ProductItem : BaseEntity , INotifyPropertyChanged
         }
     }
 
-    public ProductItem(Product product, int productCount)
-    {
-        Product = product;
-        ProductCount = productCount;
-    }
-
     #region INotifyPropertyChanged event
     public event PropertyChangedEventHandler? PropertyChanged;
     protected void OnPropertyChanged([CallerMemberName] string? paramName = null)

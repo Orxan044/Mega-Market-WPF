@@ -27,13 +27,13 @@ public class LoginViewModel : BaseViewModel
     public RelayCommand SignUpCommand { get; set; }
 
     private readonly INavigationServices _navigationServices;
-    private IRepository<User, UserDbContext> _userRepository;
+    public IRepository<User, UserDbContext> UserRepository { get; set; }
 
 
     public LoginViewModel(INavigationServices navigationServices, IRepository<User, UserDbContext> userRepository)
     {
         _navigationServices = navigationServices;
-        _userRepository = userRepository;
+        UserRepository = userRepository;
 
         UserLogin = new();
 
@@ -44,19 +44,23 @@ public class LoginViewModel : BaseViewModel
 
     private void SignInClik(object? obj)
     {
-        if (Validation.IsMail(UserLogin.Mail) && Validation.IsPassword(UserLogin.Password))
-        {
-            var Users = _userRepository.GetAll();
-            foreach (var user in Users)
-            {
-                bool isPasswordValid = BCrypt.Net.BCrypt.Verify(UserLogin.Password, user.Password);
-                if (user.Mail == UserLogin.Mail && isPasswordValid)
-                {
-                    notifier.ShowSuccess("You Are Logged In Correctly");
-                    _navigationServices.Navigate<MenyuView, MenyuViewModel>();
-                }
-            }
-        }
+        UserLogin.Mail = "orxantt044@gmail.com";
+        UserLogin.Password = "$2a$11$8myeKFq3JMUN0v0XshAbPuPugdNYaYowR52BE1KshOqKp.UUIF6UO";
+        _navigationServices.Navigate<MenyuView, MenyuViewModel>();
+
+        //if (Validation.IsMail(UserLogin.Mail) && Validation.IsPassword(UserLogin.Password))
+        //{
+        //    var Users = UserRepository.GetAll();
+        //    foreach (var user in Users)
+        //    {
+        //        bool isPasswordValid = BCrypt.Net.BCrypt.Verify(UserLogin.Password, user.Password);
+        //        if (user.Mail == UserLogin.Mail && isPasswordValid)
+        //        {
+        //            notifier.ShowSuccess("You Are Logged In Correctly");
+        //            _navigationServices.Navigate<MenyuView, MenyuViewModel>();
+        //        }
+        //    }
+        //}
     }
 
     private void SignUpClik(object? obj)

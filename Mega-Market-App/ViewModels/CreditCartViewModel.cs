@@ -10,12 +10,9 @@ namespace Mega_Market_App.ViewModels;
 
 public class CreditCartViewModel : BaseViewModel
 {
-
-    private readonly LoginViewModel _loginViewModel;
-    private readonly UserDbContext _dbContext;
     private readonly MenyuViewModel _menyuViewModel;
+    private readonly LoginViewModel _loginViewModel;
     private ObservableCollection<CreditCart>? _cards = [];
-    private string? cartNumberUI;
     private CreditCart? newCard;
 
     public ObservableCollection<CreditCart>? Cards
@@ -31,27 +28,26 @@ public class CreditCartViewModel : BaseViewModel
         set { newCard = value; OnPropertyChanged(); }
     }
 
-    public string CartNumberUI
-    {
-        get => cartNumberUI!;
-        set { cartNumberUI = value; OnPropertyChanged(); }
-    }
-
 
     public RelayCommand AddCardCommand { get; set; }
     public RelayCommand RemoveCardCommand { get; set; }
     public RelayCommand CardTypeCommand { get; }
 
+    private readonly IRepository<CreditCart, UserDbContext> _cartRepository;
 
-    public CreditCartViewModel(UserDbContext dbContext, LoginViewModel loginViewModel,MenyuViewModel menyuViewModel)
+
+    public CreditCartViewModel(IRepository<CreditCart,UserDbContext> cartRepository, LoginViewModel loginViewModel,MenyuViewModel menyuViewModel)
     {
-        _dbContext = dbContext;
+        _cartRepository = cartRepository;
         _menyuViewModel = menyuViewModel;
         _loginViewModel = loginViewModel;
-        Cards = _loginViewModel.UserLogin.CreditCarts;
+
+        Cards = new ObservableCollection<CreditCart>(_cartRepository.GetAll());
+
         NewCard = new();
 
 
+        GetUserInNewCard();
         AddCardCommand = new RelayCommand(AddCardClick);
         RemoveCardCommand = new RelayCommand(RemoveCardClick);
         CardTypeCommand = new RelayCommand(CardTypeClick);
@@ -60,12 +56,13 @@ public class CreditCartViewModel : BaseViewModel
 
     private void RemoveCardClick(object? obj)
     {
+
         var card = obj as CreditCart;
         if (card is not null)
         {
-            _loginViewModel.UserLogin.CreditCarts!.Remove(card);
-            _dbContext.CreditCarts.Remove(card);
-            _dbContext.SaveChanges();
+            _cartRepository.Delete(card);
+            _cartRepository.SaveChanges();
+            _menyuViewModel.CardsClik(obj);
         }
     }
 
@@ -79,9 +76,9 @@ public class CreditCartViewModel : BaseViewModel
                 NewCard.Code = string.Join(" - ", Enumerable.Range(0, NewCard.Code!.Length / 4)
                                        .Select(i => NewCard.Code!.Substring(i * 4, 4)));
 
-                _loginViewModel.UserLogin.CreditCarts!.Add(NewCard);
-                _dbContext.CreditCarts.Add(NewCard);
-                _dbContext.SaveChanges();
+                GetUserInNewCard();
+                _cartRepository.Add(NewCard);
+                _cartRepository.SaveChanges();
                 
                 notifier.ShowSuccess("New Cart Added Successfully !!!");
                 NewCard = new();
@@ -90,6 +87,14 @@ public class CreditCartViewModel : BaseViewModel
             else notifier.ShowError("Enter the information correctly");
         }
         else notifier.ShowError("Cart type not selected. Please Select It !!!");
+    }
+
+    private void GetUserInNewCard()
+    {
+        foreach (var user  in _loginViewModel.UserRepository.GetAll())
+        {
+            if (_loginViewModel.UserLogin.Mail == user.Mail) NewCard.User = user;
+        }
     }
 
     private void CardTypeClick(object? obj)

@@ -55,6 +55,68 @@ namespace Mega_Market_Data.Migrations.UserDb
                     b.ToTable("CreditCarts");
                 });
 
+            modelBuilder.Entity("Mega_Market_Data.Models.Concretes.History", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<DateTime?>("Date")
+                        .HasColumnType("datetime2");
+
+                    b.Property<double?>("TotalAmount")
+                        .HasColumnType("float");
+
+                    b.Property<int?>("UserId")
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("UserId");
+
+                    b.ToTable("Histories");
+                });
+
+            modelBuilder.Entity("Mega_Market_Data.Models.Concretes.ProductHistory", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<int?>("Count")
+                        .HasColumnType("int");
+
+                    b.Property<string>("Description")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("HistoryId")
+                        .HasColumnType("int");
+
+                    b.Property<int?>("HistoryId1")
+                        .HasColumnType("int");
+
+                    b.Property<string>("ImagePath")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Name")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<double?>("Price")
+                        .HasColumnType("float");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("HistoryId");
+
+                    b.HasIndex("HistoryId1");
+
+                    b.ToTable("ProductHistories");
+                });
+
             modelBuilder.Entity("Mega_Market_Data.Models.Concretes.User", b =>
                 {
                     b.Property<int>("Id")
@@ -94,15 +156,46 @@ namespace Mega_Market_Data.Migrations.UserDb
                     b.HasOne("Mega_Market_Data.Models.Concretes.User", "User")
                         .WithMany("CreditCarts")
                         .HasForeignKey("UserId")
-                        .OnDelete(DeleteBehavior.Cascade)
+                        .OnDelete(DeleteBehavior.NoAction)
                         .IsRequired();
 
                     b.Navigation("User");
                 });
 
+            modelBuilder.Entity("Mega_Market_Data.Models.Concretes.History", b =>
+                {
+                    b.HasOne("Mega_Market_Data.Models.Concretes.User", "User")
+                        .WithMany("Histories")
+                        .HasForeignKey("UserId");
+
+                    b.Navigation("User");
+                });
+
+            modelBuilder.Entity("Mega_Market_Data.Models.Concretes.ProductHistory", b =>
+                {
+                    b.HasOne("Mega_Market_Data.Models.Concretes.History", null)
+                        .WithMany("Products")
+                        .HasForeignKey("HistoryId")
+                        .OnDelete(DeleteBehavior.NoAction)
+                        .IsRequired();
+
+                    b.HasOne("Mega_Market_Data.Models.Concretes.History", "History")
+                        .WithMany()
+                        .HasForeignKey("HistoryId1");
+
+                    b.Navigation("History");
+                });
+
+            modelBuilder.Entity("Mega_Market_Data.Models.Concretes.History", b =>
+                {
+                    b.Navigation("Products");
+                });
+
             modelBuilder.Entity("Mega_Market_Data.Models.Concretes.User", b =>
                 {
                     b.Navigation("CreditCarts");
+
+                    b.Navigation("Histories");
                 });
 #pragma warning restore 612, 618
         }

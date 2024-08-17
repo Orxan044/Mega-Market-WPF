@@ -1,6 +1,9 @@
-﻿using Mega_Market_App.Command;
+﻿using MaterialDesignThemes.Wpf;
+using Mega_Market_App.Command;
 using Mega_Market_App.Services.Manager;
+using Mega_Market_Data.Data;
 using Mega_Market_Data.Models.Concretes;
+using Mega_Market_Data.Repositoies;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -198,13 +201,31 @@ namespace Mega_Market_App.ViewModels;
 
 public class BasketViewModel : BaseViewModel, INotifyPropertyChanged
 {
+    private readonly CreditCartViewModel _creditCartViewModel;
+    private readonly MenyuViewModel _menyuViewModel;
     private readonly BasketManager _basketManager;
     private Basket? _basket;
     private double? totalPayment;
     private double? productTotalPayment;
     private double? discount;
     private int? orderCount;
+    private CreditCart? _selectedCard;
+    private ObservableCollection<CreditCart>? _cardsComboBox;
     private ObservableCollection<ProductItem>? productItems = [];
+
+
+    
+    public ObservableCollection<CreditCart> CardsComboBox { get => _cardsComboBox!; set {  _cardsComboBox = value; OnPropertyChanged(); } }
+
+    public CreditCart? SelectedCard
+    {
+        get => _selectedCard;
+        set
+        {
+            _selectedCard = value;
+            OnPropertyChanged();
+        }
+    }
 
     public ObservableCollection<ProductItem>? ProductItems
     {
@@ -240,15 +261,26 @@ public class BasketViewModel : BaseViewModel, INotifyPropertyChanged
     public RelayCommand IncrementCommand { get; }
     public RelayCommand DecrementCommand { get; }
     public RelayCommand DeleteCommand { get; set; }
+    public RelayCommand GetCardsCommand { get; set; }
+    public RelayCommand BuyProductsCommand { get; set; }
 
     public Basket Basket { get => _basket!; set { _basket = value; OnPropertyChanged(); } }
 
-    public BasketViewModel(BasketManager basketManager)
+    private readonly IRepository<Product, MarketDbContext> _productRepository;
+    private readonly IRepository<ProductHistory, UserDbContext> _productHistoryRepository;
+    private readonly HistoryViewModel _historyViewModel;
+    public BasketViewModel(IRepository<Product,MarketDbContext> productRepository, IRepository<ProductHistory, UserDbContext> productHistoryRepository,HistoryViewModel historyViewModel,MenyuViewModel menyuViewModel,CreditCartViewModel creditCartViewModel,BasketManager basketManager)
     {
         _basketManager = basketManager;
+        _creditCartViewModel = creditCartViewModel;
+        _menyuViewModel = menyuViewModel;
+        _productRepository = productRepository;
+        _historyViewModel = historyViewModel;
+        _productHistoryRepository = productHistoryRepository;
 
-        Basket = _basketManager.GetBasket();
+        Basket = _basketManager.Basket;
         ProductItems = _basket!.ProductItems;
+        CardsComboBox = _creditCartViewModel.Cards!;
 
         ProductTotalPayment = _basket!.ProductTotalPayment;
         Discount = _basket.Discount;
@@ -258,7 +290,50 @@ public class BasketViewModel : BaseViewModel, INotifyPropertyChanged
         DeleteCommand = new RelayCommand(DeleteClick);
         IncrementCommand = new RelayCommand(IncrementValue!);
         DecrementCommand = new RelayCommand(DecrementValue!);
+        GetCardsCommand = new RelayCommand(GetCardsClick);
+        BuyProductsCommand = new RelayCommand(BuyProductsClick);
 
+    }
+
+    private void BuyProductsClick(object? obj)
+    {
+        if (ProductItems is not null && _basket!.TotalPayment > 0)
+        {
+            if (SelectedCard is not null)
+            {
+                notifier.ShowSuccess("The products were received with great effort. Thank you for choosing us, Good luck !!!");
+
+                // 1. Save History first
+                History newHistory = new()
+                {
+                    Date = DateTime.Now,
+                    TotalAmount = _basket!.TotalPayment,
+                    User = _creditCartViewModel.NewCard.User
+                };
+
+                _historyViewModel.AddHistory(newHistory);
+
+                CreateProductHistories(ProductItems, newHistory);
+
+                BuyProductIncrementQuantity(ProductItems);
+                _basketManager.NewBasket();
+                _menyuViewModel.BasketClik(obj);
+            }
+            else
+            {
+                notifier.ShowError("Please select Credit Card !!!");
+            }
+        }
+        else
+        {
+            notifier.ShowError("Basket is empty. Order Now !!!");
+        }
+    }
+
+
+    private void GetCardsClick(object? obj)
+    {
+        _menyuViewModel.CardsClik(obj); 
     }
 
     private void IncrementValue(object obj)
@@ -293,6 +368,45 @@ public class BasketViewModel : BaseViewModel, INotifyPropertyChanged
         TotalPayment = _basket!.TotalPayment ?? 0.0;
         OnPropertyChanged(nameof(ProductItems));
     }
+
+    private void BuyProductIncrementQuantity(ObservableCollection<ProductItem> ProductItems)
+    {
+        foreach (var productItem in ProductItems)
+        {
+
+            var product = _productRepository.Get(productItem.Product!.Id);
+            if (product is not null)
+            {
+                product.Quantity -= productItem.ProductCount;
+                _productRepository.Update(product);
+            }
+        }
+        _productRepository.SaveChanges();
+    }
+
+    private void CreateProductHistories(ObservableCollection<ProductItem> productItems, History newHistory)
+    {
+        // Ensure history is saved and the newHistory.Id is assigned before creating product histories
+        //_historyViewModel.Save(); // Method to save history if not already done
+
+        foreach (var productItem in productItems)
+        {
+            var newHistoryProduct = new ProductHistory
+            {
+                ImagePath = productItem.Product!.ImagePath,
+                Name = productItem.Product.Name,
+                Description = productItem.Product.Description,
+                Price = productItem.Product.Price,
+                Count = productItem.ProductCount,
+                HistoryId = newHistory.Id, // Ensure this is set correctly
+                History = newHistory
+            };
+            _productHistoryRepository.Add(newHistoryProduct);
+            newHistory.Products!.Add(newHistoryProduct); 
+            _productHistoryRepository.SaveChanges();
+        }
+    }
+
 
 
 }

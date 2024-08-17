@@ -135,7 +135,7 @@ public class ProductsViewModel : BaseViewModel , INotifyPropertyChanged
         if (SelectedCategory is not null)
         {
             foreach (var product in _productRepository.GetAll())
-                if (product.Category == SelectedCategory)
+                if (product.Category == SelectedCategory && product.Quantity > 0)
                     Products.Add(product);
         }
     }

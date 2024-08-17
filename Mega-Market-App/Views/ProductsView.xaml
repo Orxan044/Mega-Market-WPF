@@ -52,7 +52,7 @@
             <ListView x:Name="ListView1" ItemsSource="{Binding Products}" VerticalAlignment="Top">
                 <ListView.ItemsPanel>
                     <ItemsPanelTemplate>
-                        <WrapPanel Orientation="Horizontal" Width="730"/>
+                        <WrapPanel Orientation="Horizontal" Width="713"/>
                     </ItemsPanelTemplate>
                 </ListView.ItemsPanel>
 

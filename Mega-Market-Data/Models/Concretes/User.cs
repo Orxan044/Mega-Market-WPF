@@ -13,4 +13,6 @@ public class User : BaseEntity
     public string? Mail { get; set; }
     public string? Password { get; set; }
     public ObservableCollection<CreditCart>? CreditCarts { get; set; } = [];
+    public ObservableCollection<History>? Histories { get; set; } = [];
+
 }

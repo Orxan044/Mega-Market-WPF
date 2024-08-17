@@ -16,8 +16,8 @@ public class MainViewModel : BaseViewModel,INotifyPropertyChanged
 
     public MainViewModel()
     {
-        _currentPage = App.Container.GetInstance<RegistherView>();
-        _currentPage.DataContext = App.Container.GetInstance<RegistherViewModel>();
+        _currentPage = App.Container.GetInstance<LoginView>();
+        _currentPage.DataContext = App.Container.GetInstance<LoginViewModel>();
     }
 }
 

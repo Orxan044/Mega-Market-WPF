@@ -25,6 +25,7 @@ public class MenyuViewModel : BaseViewModel , INotifyPropertyChanged
     public RelayCommand CategoryCommand { get; set; }
     public RelayCommand ProductsCommand { get; set; }
     public RelayCommand BasketCommand { get; set; }
+    public RelayCommand HistoryCommand { get; set; }
     public RelayCommand CardsCommand { get; set; }
     public RelayCommand CloseCommand { get; set; }
     
@@ -36,6 +37,7 @@ public class MenyuViewModel : BaseViewModel , INotifyPropertyChanged
         ProductsCommand = new RelayCommand(ProductsClik);
         BasketCommand = new RelayCommand(BasketClik);
         CloseCommand = new RelayCommand(CloseClik);
+        HistoryCommand = new RelayCommand(HistoryClik);
         CardsCommand = new RelayCommand(CardsClik);
 
         CurrentPage2 = App.Container.GetInstance<DashBoardView>();
@@ -64,6 +66,11 @@ public class MenyuViewModel : BaseViewModel , INotifyPropertyChanged
     {
         CurrentPage2 = App.Container.GetInstance<BasketView>();
         CurrentPage2.DataContext = App.Container.GetInstance<BasketViewModel>();
+    }
+    public void HistoryClik(object? obj)
+    {
+        CurrentPage2 = App.Container.GetInstance<HistoryView>();
+        CurrentPage2.DataContext = App.Container.GetInstance<HistoryViewModel>();
     }
 
     public void CardsClik(object? obj)

@@ -30,7 +30,7 @@
                 <ListView ItemsSource="{Binding Cards}" VerticalAlignment="Top">
                     <ListView.ItemsPanel>
                         <ItemsPanelTemplate>
-                            <WrapPanel Orientation="Horizontal" Width="420"/>
+                            <WrapPanel Orientation="Horizontal" Width="404"/>
                         </ItemsPanelTemplate>
                     </ListView.ItemsPanel>
 
@@ -147,7 +147,7 @@
                 </Grid>
             </StackPanel>
 
-            <Button Command="{Binding AddCardCommand}" Content="Add Card" FontSize="20" Background="#F1C40F" BorderBrush="#F1C40F"  Height="60" Margin="10,440,10,0" VerticalAlignment="Top"/>
+            <Button Command="{Binding AddCardCommand}" Content="Add Card" FontSize="20" Background="#F1C40F" BorderBrush="#F1C40F"  Height="43" Margin="15,440,15,0" VerticalAlignment="Top"/>
         </Grid>
 
 

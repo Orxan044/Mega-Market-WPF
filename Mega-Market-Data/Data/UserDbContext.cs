@@ -12,13 +12,26 @@ public class UserDbContext : DbContext
     }
     public DbSet<User> Users { get; set; }
     public DbSet<CreditCart> CreditCarts { get; set; }
+    public DbSet<History> Histories { get; set; }
+    public DbSet<ProductHistory> ProductHistories { get; set; }
+
+
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
         base.OnModelCreating(modelBuilder);
-        modelBuilder.Entity<User>()
-            .HasMany(u => u.CreditCarts)
-            .WithOne(cc => cc.User)
-            .HasForeignKey(cc => cc.UserId);
+
+        modelBuilder.Entity<CreditCart>()
+            .HasOne(c => c.User)
+            .WithMany(u => u.CreditCarts)
+            .HasForeignKey(c => c.UserId)
+            .OnDelete(DeleteBehavior.NoAction);
+
+        modelBuilder.Entity<ProductHistory>()
+            .HasOne<History>() 
+            .WithMany(h => h.Products) 
+            .HasForeignKey(p => p.HistoryId) 
+            .OnDelete(DeleteBehavior.NoAction); 
     }
+
 }
