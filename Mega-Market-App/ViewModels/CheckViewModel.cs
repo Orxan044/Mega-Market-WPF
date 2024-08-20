@@ -1,12 +1,25 @@
-﻿using Mega_Market_Data.Data;
+﻿using Mega_Market_App.Command;
+using Mega_Market_Data.Data;
 using Mega_Market_Data.Models.Concretes;
 using Mega_Market_Data.Repositoies;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
+using System.IO;
+using System.Net.Mail;
+using System.Net;
+using ToastNotifications.Messages;
+using iText.Kernel.Pdf;
+using iText.Layout.Borders;
+using iText.Layout.Element;
+using iText.Layout.Properties;
+using iText.IO.Image;
+using iText.Kernel.Colors;
+using System.Net.Http;
+using Mega_Market_App.Services.Mail;
 
 namespace Mega_Market_App.ViewModels;
 
-public class CheckViewModel : BaseViewModel , INotifyPropertyChanged
+public class CheckViewModel : BaseViewModel, INotifyPropertyChanged
 {
     private History? _history;
     public History History
@@ -19,7 +32,7 @@ public class CheckViewModel : BaseViewModel , INotifyPropertyChanged
 
     public DateTime? Time
     {
-        get => _Time; 
+        get => _Time;
         set { _Time = value; OnPropertyChanged(); }
     }
 
@@ -27,7 +40,7 @@ public class CheckViewModel : BaseViewModel , INotifyPropertyChanged
 
     public double? Total
     {
-        get => _total; 
+        get => _total;
         set { _total = value; OnPropertyChanged(); }
     }
 
@@ -35,14 +48,23 @@ public class CheckViewModel : BaseViewModel , INotifyPropertyChanged
     private ObservableCollection<ProductHistory>? products;
     public ObservableCollection<ProductHistory> Products { get => products!; set { products = value; OnPropertyChanged(); } }
 
-    private IRepository<ProductHistory,UserDbContext> _productHistoryRepository;
-    public CheckViewModel(IRepository<ProductHistory,UserDbContext> productHistoryRepository)
+    private IRepository<ProductHistory, UserDbContext> _productHistoryRepository;
+
+    public  RelayCommand PdfToMailCommand { get; set; }
+    public CheckViewModel(IRepository<ProductHistory, UserDbContext> productHistoryRepository)
     {
         _productHistoryRepository = productHistoryRepository;
         History = new();
         Time = History.Date;
         Total = History.TotalAmount;
         Products = [];
+
+        PdfToMailCommand = new RelayCommand(PdfToMailClick);
+    }
+
+    private void PdfToMailClick(object? obj)
+    {
+        CreatePdf();
     }
 
     public void AddCheckHistory(History history)
@@ -52,6 +74,86 @@ public class CheckViewModel : BaseViewModel , INotifyPropertyChanged
         Total = history.TotalAmount;
         foreach (var productHistory in _productHistoryRepository.GetAll())
             if (productHistory.History == history) Products.Add(productHistory);
-        
+
+    }
+
+    public void CreatePdf()
+    {
+        string tempPath = Path.GetTempPath();
+        string filename = Path.Combine(tempPath, "ProductCheck.pdf");
+
+        using (PdfWriter writer = new PdfWriter(filename))
+        {
+            using (PdfDocument pdf = new PdfDocument(writer))
+            {
+                iText.Layout.Document document = new iText.Layout.Document(pdf);
+                document.SetMargins(20, 20, 20, 20);
+
+                // Başlık
+                Paragraph title = new Paragraph("Product Check")
+                    .SetFontSize(26)
+                    .SetFontColor(ColorConstants.BLACK)
+                    .SetTextAlignment(iText.Layout.Properties.TextAlignment.CENTER)
+                    .SetBold();
+                document.Add(title);
+
+                // Tarih
+                Paragraph dateParagraph = new Paragraph($"Time: {Time:dd/MM/yyyy HH:mm:ss}")
+                    .SetFontSize(15)
+                    .SetMarginTop(10);
+                document.Add(dateParagraph);
+
+                // Ürünler
+                foreach (var product in Products)
+                {
+                    Table table = new Table(UnitValue.CreatePercentArray(new float[] { 1, 2 })).UseAllAvailableWidth();
+
+                    // Ürün Bilgileri
+                    Paragraph productInfo = new Paragraph()
+                        .Add(new Text($"{product.Name}, {product.Description}\n").SetFontSize(15))
+                        .Add(new Text($"Price: {product.Price} ₼\n").SetFontSize(15))
+                        .Add(new Text($"Count: {product.Count} pcs").SetFontSize(15));
+
+                    Cell infoCell = new Cell().Add(productInfo)
+                        .SetBorder(Border.NO_BORDER)
+                        .SetVerticalAlignment(iText.Layout.Properties.VerticalAlignment.MIDDLE);
+                    table.AddCell(infoCell);
+
+                    document.Add(table);
+                }
+
+                // Toplam
+                Paragraph totalParagraph = new Paragraph($"Total: {Total} ₼")
+                    .SetFontSize(26)
+                    .SetFontColor(ColorConstants.BLACK)
+                    .SetBold()
+                    .SetTextAlignment(iText.Layout.Properties.TextAlignment.CENTER)
+                    .SetMarginTop(10);
+                document.Add(totalParagraph);
+            }
+        }
+
+        // PDF dosyasını e-posta ile gönder
+        try
+        {
+            MailServices.SendMail(
+                "orxantt044@gmail.com",
+                "Mega Market Products Check",
+                "Please find the attached Product Check PDF.",
+                filename // PDF dosyasını ek olarak gönder
+            );
+
+            notifier.ShowSuccess("Email Sent Successfully");
+        }
+        catch (Exception ex)
+        {
+            notifier.ShowError("Something went wrong with the mail. Please try again.");
+        }
     }
 }
+
+
+
+
+
+

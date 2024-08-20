@@ -27,11 +27,25 @@ public class MenyuViewModel : BaseViewModel , INotifyPropertyChanged
     public RelayCommand BasketCommand { get; set; }
     public RelayCommand HistoryCommand { get; set; }
     public RelayCommand CardsCommand { get; set; }
+    public RelayCommand SettingsCommand { get; set; }
     public RelayCommand CloseCommand { get; set; }
-    
 
-    public MenyuViewModel()
+    private readonly LoginViewModel _loginViewModel;
+
+    private string? _userName;
+
+    public string? UserName
     {
+        get => _userName; 
+        set { _userName = value; OnPropertyChanged(); }
+    }
+
+    public MenyuViewModel(LoginViewModel loginViewModel)
+    {
+        _loginViewModel = loginViewModel;
+
+        UserName = _loginViewModel.UserLogin.Name;
+
         DashBoardCommand = new RelayCommand(DashBoardClick);
         CategoryCommand = new RelayCommand(CategoryClik);
         ProductsCommand = new RelayCommand(ProductsClik);
@@ -39,13 +53,15 @@ public class MenyuViewModel : BaseViewModel , INotifyPropertyChanged
         CloseCommand = new RelayCommand(CloseClik);
         HistoryCommand = new RelayCommand(HistoryClik);
         CardsCommand = new RelayCommand(CardsClik);
+        SettingsCommand = new RelayCommand(SettingsClik);
 
         CurrentPage2 = App.Container.GetInstance<DashBoardView>();
         CurrentPage2.DataContext = App.Container.GetInstance<DashBoradViewModel>();
+
+        
     }
 
-
-    private void DashBoardClick(object? obj)
+    public void DashBoardClick(object? obj)
     {
         CurrentPage2 = App.Container.GetInstance<DashBoardView>();
         CurrentPage2.DataContext = App.Container.GetInstance<DashBoradViewModel>();
@@ -79,8 +95,15 @@ public class MenyuViewModel : BaseViewModel , INotifyPropertyChanged
         CurrentPage2.DataContext = App.Container.GetInstance<CreditCartViewModel>();
     }
 
+    private void SettingsClik(object? obj)
+    {
+        CurrentPage2 = App.Container.GetInstance<SettingsView>();
+        CurrentPage2.DataContext = App.Container.GetInstance<SettingsViewModel>();
+    }
+
     private void CloseClik(object? obj)
     {
+        _loginViewModel.UserRepository.SaveChanges();
         Application.Current.MainWindow.Close();
         Environment.Exit(0);
     }

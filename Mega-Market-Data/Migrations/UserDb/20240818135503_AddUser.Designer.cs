@@ -12,8 +12,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Mega_Market_Data.Migrations.UserDb
 {
     [DbContext(typeof(UserDbContext))]
-    [Migration("20240817145250_GUser")]
-    partial class GUser
+    [Migration("20240818135503_AddUser")]
+    partial class AddUser
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -128,8 +128,8 @@ namespace Mega_Market_Data.Migrations.UserDb
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
-                    b.Property<DateTime?>("DateOfBrithday")
-                        .HasColumnType("datetime2");
+                    b.Property<string>("DateOfBrithday")
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("ImagePath")
                         .HasColumnType("nvarchar(max)");

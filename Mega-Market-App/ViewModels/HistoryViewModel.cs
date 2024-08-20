@@ -27,13 +27,36 @@ public class HistoryViewModel : BaseViewModel , INotifyPropertyChanged
     public RelayCommand ShowCheckCommand { get; set; }
         
     public IRepository<History, UserDbContext> HistoryRepository;
-    public HistoryViewModel(IRepository<History,UserDbContext> historyRepository,CheckViewModel checkViewModel)
+    private readonly LoginViewModel _loginViewModel;
+    private User _user = new();
+    public HistoryViewModel(IRepository<History,UserDbContext> historyRepository, CheckViewModel checkViewModel, LoginViewModel loginViewModel)
     {
-        HistoryRepository = historyRepository;
+        _loginViewModel = loginViewModel;
         _checkViewModel = checkViewModel;
+        HistoryRepository = historyRepository;
 
-        Histories = new ObservableCollection<History>(HistoryRepository.GetAll());
+        Histories = [];
+
+        UserCheck();
+
         ShowCheckCommand = new RelayCommand(ShowCheckClick);
+    }
+
+    void UserCheck()
+    {
+        foreach (var user in _loginViewModel.UserRepository.GetAll())
+        {
+            if (_loginViewModel.UserLogin.Mail == user.Mail)
+            {
+                _user = user;
+            }
+        }
+
+        foreach (var history in HistoryRepository.GetAll())
+        {
+            if (history.UserId == _user.Id) Histories!.Add(history);
+        }
+
     }
 
     private void ShowCheckClick(object? obj)
@@ -46,7 +69,6 @@ public class HistoryViewModel : BaseViewModel , INotifyPropertyChanged
             CurrentPageCheck = App.Container.GetInstance<CheckView>();
             CurrentPageCheck.DataContext = _checkViewModel;
         }
-
     }
 
     public void AddHistory(History history)

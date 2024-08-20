@@ -7,7 +7,7 @@ using ToastNotifications.Position;
 
 namespace Mega_Market_App.ViewModels;
 
-public abstract class BaseViewModel
+public abstract class BaseViewModel : INotifyPropertyChanged
 {
     #region Create notifier
 

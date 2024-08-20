@@ -12,8 +12,10 @@
   <ItemGroup>
     <None Remove="Photos\basketIcon.png" />
     <None Remove="Photos\cart.png" />
+    <None Remove="Photos\home.png" />
     <None Remove="Photos\mastercard.png" />
     <None Remove="Photos\mLogo.png" />
+    <None Remove="Photos\settings.png" />
     <None Remove="Photos\visa.png" />
   </ItemGroup>
 
@@ -28,6 +30,8 @@
   		<IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
   	</PackageReference>
   	<PackageReference Include="Microsoft.Xaml.Behaviors.Wpf" Version="1.1.122" />
+  	<PackageReference Include="PdfFormFillUpUtility" Version="1.0.0" />
+  	<PackageReference Include="PDFsharp" Version="6.1.1" />
   	<PackageReference Include="SimpleInjector" Version="5.4.6" />
   	<PackageReference Include="ToastNotifications" Version="2.5.1" />
   	<PackageReference Include="ToastNotifications.Messages" Version="2.5.1" />
@@ -41,8 +45,10 @@
   <ItemGroup>
     <Resource Include="Photos\basketIcon.png" />
     <Resource Include="Photos\cart.png" />
+    <Resource Include="Photos\home.png" />
     <Resource Include="Photos\mastercard.png" />
     <Resource Include="Photos\mLogo.png" />
+    <Resource Include="Photos\settings.png" />
     <Resource Include="Photos\visa.png" />
   </ItemGroup>
 

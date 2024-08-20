@@ -125,8 +125,8 @@ namespace Mega_Market_Data.Migrations.UserDb
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
-                    b.Property<DateTime?>("DateOfBrithday")
-                        .HasColumnType("datetime2");
+                    b.Property<string>("DateOfBrithday")
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("ImagePath")
                         .HasColumnType("nvarchar(max)");

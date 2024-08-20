@@ -32,7 +32,7 @@
 
                     <StackPanel Grid.Row="0" Orientation="Horizontal">
                         <material:PackIcon Kind="User" HorizontalAlignment="Center" Height="36" VerticalAlignment="Center" Width="36" Margin="10 0 0 0"/>
-                        <Label Content="Orxan" Foreground="{DynamicResource SecundaryBlueColor}" FontWeight="Bold" FontSize="24" VerticalAlignment="Center" HorizontalContentAlignment="Left" HorizontalAlignment="Left" Margin="5 0 0 0"/>
+                        <Label Content="{Binding UserName}" Foreground="{DynamicResource SecundaryBlueColor}" FontWeight="Bold" FontSize="24" VerticalAlignment="Center" HorizontalContentAlignment="Left" HorizontalAlignment="Left" Margin="5 0 0 0"/>
                     </StackPanel>
 
                     <StackPanel Grid.Row="1">
@@ -45,7 +45,7 @@
                         <Separator Margin="20 20" Background="{DynamicResource TertiaryBackgroundColor}"/>
 
                         <RadioButton Command="{Binding CardsCommand}" x:Name="rdCards" Content="Cards" Style="{DynamicResource MenuRadioButtonStyle}" Tag="{DynamicResource creditCardIcon}" Margin="0 1 0 1"/>
-                        <RadioButton x:Name="rdSettings" Content="Settings" Style="{DynamicResource MenuRadioButtonStyle}" Tag="{DynamicResource settings}"/>
+                        <RadioButton Command="{Binding SettingsCommand}" x:Name="rdSettings" Content="Settings" Style="{DynamicResource MenuRadioButtonStyle}" Tag="{DynamicResource settings}"/>
 
                     </StackPanel>
 
@@ -80,9 +80,21 @@
                     <RowDefinition></RowDefinition>
                 </Grid.RowDefinitions>
 
-                <Button Margin="0 0"  HorizontalAlignment="Right"  Width="35" Height="38" Background="{x:Null}" BorderBrush="{x:Null}" Padding="0" Foreground="Gray" Command="{Binding CloseCommand}">
-                    <material:PackIcon Kind="Close" HorizontalAlignment="Center" Height="38" VerticalAlignment="Center" Width="30"/>
-                </Button>
+                <StackPanel Orientation="Horizontal" VerticalAlignment="Center" HorizontalAlignment="Right">
+                   
+                    <Button Margin="0 0"  HorizontalAlignment="Right"  Width="35" Height="38" Background="{x:Null}" BorderBrush="{x:Null}" Padding="0" Foreground="Gray" Command="{Binding SettingsCommand}">
+                        <material:PackIcon Kind="Settings" HorizontalAlignment="Center" Height="38" VerticalAlignment="Center" Width="30"/>
+                    </Button>
+
+                    <Button Margin="0 0"  HorizontalAlignment="Right"  Width="35" Height="38" Background="{x:Null}" BorderBrush="{x:Null}" Padding="0" Foreground="Gray" Command="{Binding BasketCommand}">
+                        <material:PackIcon Kind="Shopping" HorizontalAlignment="Center" Height="38" VerticalAlignment="Center" Width="30"/>
+                    </Button>
+
+                    <Button Margin="0 0"  HorizontalAlignment="Right"  Width="35" Height="38" Background="{x:Null}" BorderBrush="{x:Null}" Padding="0" Foreground="Gray" Command="{Binding CloseCommand}">
+                        <material:PackIcon Kind="Close" HorizontalAlignment="Center" Height="38" VerticalAlignment="Center" Width="30"/>
+                    </Button>
+
+                </StackPanel>
 
                 <Frame Content="{Binding CurrentPage2}" Grid.Row="1" Height="510" Width="730" NavigationUIVisibility="Hidden" ></Frame>
 

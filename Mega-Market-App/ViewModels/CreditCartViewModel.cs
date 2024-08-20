@@ -2,6 +2,7 @@
 using Mega_Market_App.Validations;
 using Mega_Market_Data.Data;
 using Mega_Market_Data.Models.Concretes;
+using Mega_Market_Data.Models.Enum;
 using Mega_Market_Data.Repositoies;
 using System.Collections.ObjectModel;
 using ToastNotifications.Messages;
@@ -35,17 +36,14 @@ public class CreditCartViewModel : BaseViewModel
 
     private readonly IRepository<CreditCart, UserDbContext> _cartRepository;
 
-
     public CreditCartViewModel(IRepository<CreditCart,UserDbContext> cartRepository, LoginViewModel loginViewModel,MenyuViewModel menyuViewModel)
     {
         _cartRepository = cartRepository;
         _menyuViewModel = menyuViewModel;
         _loginViewModel = loginViewModel;
 
-        Cards = new ObservableCollection<CreditCart>(_cartRepository.GetAll());
-
+        Cards = [];
         NewCard = new();
-
 
         GetUserInNewCard();
         AddCardCommand = new RelayCommand(AddCardClick);
@@ -79,6 +77,7 @@ public class CreditCartViewModel : BaseViewModel
                 GetUserInNewCard();
                 _cartRepository.Add(NewCard);
                 _cartRepository.SaveChanges();
+
                 
                 notifier.ShowSuccess("New Cart Added Successfully !!!");
                 NewCard = new();
@@ -91,14 +90,32 @@ public class CreditCartViewModel : BaseViewModel
 
     private void GetUserInNewCard()
     {
-        foreach (var user  in _loginViewModel.UserRepository.GetAll())
+        User _user = new();
+        foreach (var user in _loginViewModel.UserRepository.GetAll())
         {
-            if (_loginViewModel.UserLogin.Mail == user.Mail) NewCard.User = user;
+            if (_loginViewModel.UserLogin.Mail == user.Mail)
+            {
+                NewCard.User = user;
+                _user = user;
+            }
+        }
+
+        foreach (var card in _cartRepository.GetAll())
+        {
+            if (card.UserId == _user.Id) Cards!.Add(card);
         }
     }
 
     private void CardTypeClick(object? obj)
     {
-        if (obj is string cardType) NewCard.IconName = cardType;
+        if (obj is string cardType)
+        {
+            NewCard.IconName = cardType;
+
+            if (cardType == "CcMaster") NewCard.Type = CartType.Mastercard;
+            else NewCard.Type = CartType.Visa;
+
+        }
+
     }
 }

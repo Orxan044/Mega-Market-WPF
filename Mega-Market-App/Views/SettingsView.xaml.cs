@@ -12,20 +12,17 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
-using PdfSharp.Pdf;
-using PdfSharp.Drawing;
-using System.IO;
-using System.Diagnostics;
-using Mega_Market_Data.Models.Concretes;
 
-namespace Mega_Market_App.Views;
-
-
-public partial class CheckView : Page
+namespace Mega_Market_App.Views
 {
-    public CheckView()
+    /// <summary>
+    /// Interaction logic for SettingsView.xaml
+    /// </summary>
+    public partial class SettingsView : Page
     {
-        InitializeComponent();
+        public SettingsView()
+        {
+            InitializeComponent();
+        }
     }
-
 }

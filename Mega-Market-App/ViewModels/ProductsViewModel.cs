@@ -140,6 +140,9 @@ public class ProductsViewModel : BaseViewModel , INotifyPropertyChanged
         }
     }
 
+
+
+
     private void AddBasketClick(object? obj)
     {
         var product = _productRepository.Get(Convert.ToInt32(obj));

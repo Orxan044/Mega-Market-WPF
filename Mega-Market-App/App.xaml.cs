@@ -45,7 +45,7 @@ public partial class App : Application
         Container.RegisterSingleton<SplashViewModel>();
         Container.RegisterSingleton<LoginViewModel>();
         Container.RegisterSingleton<RegistherViewModel>();
-        Container.RegisterSingleton<DashBoradViewModel>();
+        Container.Register<DashBoradViewModel>();
         Container.RegisterSingleton<MenyuViewModel>();
         Container.RegisterSingleton<CategoriesViewModel>();
         Container.RegisterSingleton<ProductsViewModel>();
@@ -53,6 +53,7 @@ public partial class App : Application
         Container.Register<CreditCartViewModel>();
         Container.Register<HistoryViewModel>();
         Container.Register<CheckViewModel>();
+        Container.Register<SettingsViewModel>();
     }
 
     private static void AddViews()
@@ -69,6 +70,7 @@ public partial class App : Application
         Container.RegisterSingleton<CreditCartView>();
         Container.RegisterSingleton<HistoryView>();
         Container.RegisterSingleton<CheckView>();
+        Container.RegisterSingleton<SettingsView>();
     }
 
     protected override void OnStartup(StartupEventArgs e)

@@ -4,11 +4,12 @@ using ToastNotifications.Lifetime;
 using ToastNotifications.Position;
 using System.Windows;
 using ToastNotifications.Messages;
+using System.IO;
 namespace Mega_Market_App.Services.Mail;
 
 public class MailServices
 {
-    public static void SendMail(string to, string subject, string body)
+    public static void SendMail(string to, string subject, string body, string attachmentPath = null)
     {
         #region Notifier
         ToastNotifications.Notifier notifier = new ToastNotifications.Notifier(cfg =>
@@ -31,7 +32,6 @@ public class MailServices
         {
             Port = 587,
             Credentials = new NetworkCredential("n.resul11@gmail.com", "ljgb fqte vzss ncxk"),
-            //Accounts Password - Go To Google Account
             EnableSsl = true,
         };
 
@@ -44,6 +44,21 @@ public class MailServices
         };
 
         mailMessage.To.Add(to);
+
+        // PDF dosyasını e-posta ekine ekle
+        if (!string.IsNullOrEmpty(attachmentPath))
+        {
+            if (File.Exists(attachmentPath))
+            {
+                Attachment pdfAttachment = new Attachment(attachmentPath);
+                mailMessage.Attachments.Add(pdfAttachment);
+            }
+            else
+            {
+                notifier.ShowError("The attachment file does not exist.");
+                return;
+            }
+        }
 
         try
         {
