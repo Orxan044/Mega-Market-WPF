@@ -20,7 +20,7 @@
         </StackPanel>
 
 
-        <Border Margin="39,14,400,306" Grid.Row="1" >
+        <Border Margin="24,14,415,306" Grid.Row="1" >
             <Border.Background>
                 <LinearGradientBrush StartPoint="0,0" EndPoint="1,2">
                     <GradientStop Color="#FD8A87" Offset="0" />
@@ -52,7 +52,7 @@
 
 
 
-        <Border Grid.Row="1" Margin="400,14,39,306" >
+        <Border Grid.Row="1" Margin="399,14,40,306" >
             <Border.Background>
                 <LinearGradientBrush StartPoint="0,0" EndPoint="1,2">
                     <GradientStop Color="#FC84CB" Offset="0" />
@@ -80,118 +80,23 @@
             </Grid>
         </Border>
 
-        <!--Orders-->
-        <Border CornerRadius="20" Padding="0 25" Background="#243771" Margin="415,174,39,10" Grid.Row="1">
-            <Grid>
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="21*"/>
-                    <ColumnDefinition Width="2*"/>
-                </Grid.ColumnDefinitions>
-                <Grid.RowDefinitions>
-                    <RowDefinition Height="auto"/>
-                    <RowDefinition Height="*"/>
-                </Grid.RowDefinitions>
+        <Grid Grid.Row="1"   Margin="493,185,40,178">
+            <Grid.RowDefinitions>
+                <RowDefinition  Height="34*"></RowDefinition>
+                <RowDefinition Height="63*"></RowDefinition>
+            </Grid.RowDefinitions>
 
-                <StackPanel Orientation="Horizontal" Margin="28 0 0 15" Grid.ColumnSpan="2">
-                    <fa:IconImage Icon="Circle"/>
-                    <Button Background="Transparent" BorderBrush="Transparent"  FontSize="18" FontWeight="SemiBold" Margin="0 0 0 0" VerticalAlignment="Center" Width="89" >
-                        <TextBlock Text="Orders" 
-                       FontSize="18" 
-                       FontWeight="Bold" 
-                       Foreground="Black" 
-                       HorizontalAlignment="Left" 
-                       VerticalAlignment="Top"
-                       TextDecorations="{x:Static TextDecorations.Underline}" />
-                    </Button>
-                </StackPanel>
+            <TextBlock Background="#fd9210" FontSize="18" Padding="30 3 0 0" Text="Bonus Balance" > </TextBlock>
+            <TextBlock Text="{Binding BonusBalance, StringFormat='  {0} ₼'}" Grid.Row="1" Background="#f6a850"  FontSize="28" Padding="55 10 0 0"  > </TextBlock>
+            
+        </Grid>
 
-                <StackPanel Grid.Row="1" Margin="0,0,0,-11" Grid.ColumnSpan="2">
-                    <Border Padding="5" Margin="0 5 0 5" HorizontalAlignment="Stretch">
-                        <Border.Style>
-                            <Style TargetType="Border">
-                                <Setter Property="Background" Value="Transparent" />
-                                <Style.Triggers>
-                                    <Trigger Property="IsMouseOver" Value="True">
-                                        <Setter Property="Background" Value="#364c8f" />
-                                    </Trigger>
-                                </Style.Triggers>
-                            </Style>
-                        </Border.Style>
+        <Image Grid.Row="1" Source="pack://application:,,,/Mega-Market-App;component/Photos/Bonus Card.png" Margin="24,184,265,46" />
+        <Image Source="pack://application:,,,/Mega-Market-App;component/Photos/Bonus10m.png" Margin="470,286,111,28" Grid.Row="1"  />
 
-                        <StackPanel Orientation="Horizontal">
-                            <Grid Width="45" Height="45" Margin="25 0 0 0">
-                                <Border CornerRadius="10" Background="#152457" />
-                                <Image Source="{Binding Order.ImagePath}"/>
-                            </Grid>
+        <TextBlock Grid.Row="1" TextWrapping="Wrap" FontSize="18"  Text="Earn 0.20 ₼ cashback on every 10 ₼ purchase" Margin="616,308,0,46" />
 
-                            <StackPanel Margin="10 0 0 0" VerticalAlignment="Center">
-                                <TextBlock Text="{Binding Order.Name}" FontSize="14" Foreground="#7C8DC3"/>
-                                <TextBlock Text="{Binding Order.Desription}" FontSize="11" Foreground="#7C8DC3" Margin="0 3 0 0"/>
-                            </StackPanel>
-                        </StackPanel>
 
-                    </Border>
-
-                    <Border Padding="5" Margin="0 5 0 5" HorizontalAlignment="Stretch">
-                        <Border.Style>
-                            <Style TargetType="Border">
-                                <Setter Property="Background" Value="Transparent" />
-                                <Style.Triggers>
-                                    <Trigger Property="IsMouseOver" Value="True">
-                                        <Setter Property="Background" Value="#364c8f" />
-                                    </Trigger>
-                                </Style.Triggers>
-                            </Style>
-                        </Border.Style>
-
-                        <StackPanel Orientation="Horizontal">
-                            <Grid Width="45" Height="45" Margin="25 0 0 0">
-                                <Border CornerRadius="10" Background="#152457" />
-                                <Image Source="{Binding Order.ImagePath}"/>
-                            </Grid>
-
-                            <StackPanel Margin="10 0 0 0" VerticalAlignment="Center">
-                                <TextBlock Text="{Binding Order.Name}" FontSize="14" Foreground="#7C8DC3"/>
-                                <TextBlock Text="{Binding Order.Desription}" FontSize="11" Foreground="#7C8DC3" Margin="0 3 0 0"/>
-                            </StackPanel>
-                        </StackPanel>
-
-                    </Border>
-
-                    <Border Padding="5" Margin="0 5 0 5" HorizontalAlignment="Stretch">
-                        <Border.Style>
-                            <Style TargetType="Border">
-                                <Setter Property="Background" Value="Transparent" />
-                                <Style.Triggers>
-                                    <Trigger Property="IsMouseOver" Value="True">
-                                        <Setter Property="Background" Value="#364c8f" />
-                                    </Trigger>
-                                </Style.Triggers>
-                            </Style>
-                        </Border.Style>
-
-                        <StackPanel Orientation="Horizontal">
-                            <Grid Width="45" Height="45" Margin="25 0 0 0">
-                                <Border CornerRadius="10" Background="#152457" />
-                                <Image Source="{Binding Order.ImagePath}"/>
-                            </Grid>
-
-                            <StackPanel Margin="10 0 0 0" VerticalAlignment="Center">
-                                <TextBlock Text="{Binding Order.Name}" FontSize="14" Foreground="#7C8DC3"/>
-                                <TextBlock Text="{Binding Order.Desription}" FontSize="11" Foreground="#7C8DC3" Margin="0 3 0 0"/>
-                            </StackPanel>
-                        </StackPanel>
-
-                    </Border>
-
-                    <!--<uc:Item Title="T-Shirt Embrace" Desc="John Doe - 10:30" Icon="Tshirt"/>
-                    <uc:Item Title="Shoes Kamoin" Desc="Karim Penci - 12:00" Icon="ShoePrints"/>
-                    <uc:Item Title="Socks Besaze" Desc="Mari Sumue - 13:45" Icon="Socks"/>
-                    <uc:Item Title="T-Shirt Argok" Desc="Ali Qackman - 14:30" Icon="Tshirt"/>
-                    <uc:Item Title="Hat Jackman" Desc="Jack Praide - 15:25" Icon="HardHat"/>-->
-                </StackPanel>
-            </Grid>
-        </Border>
 
     </Grid>
 </Page>

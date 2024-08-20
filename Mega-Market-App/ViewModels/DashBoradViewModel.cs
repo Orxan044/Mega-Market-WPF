@@ -28,10 +28,21 @@ public class DashBoradViewModel : BaseViewModel
         }
     }
 
+    private double? bonusBalance = 0;
+    public double? BonusBalance
+    {
+        get => bonusBalance!;
+        set
+        {
+            bonusBalance = value;
+            OnPropertyChanged();
+        }
+    }
+
     private ObservableCollection<Category>? orders;
     public ObservableCollection<Category>? Orders
     {
-        get => orders!;
+        get => new ObservableCollection<Category>(orders?.Take(3) ?? Enumerable.Empty<Category>());
         set
         {
             orders = value;
@@ -60,6 +71,7 @@ public class DashBoradViewModel : BaseViewModel
     {
         TotalShoping = 0;
         TotalCard = 0;
+        BonusBalance = 0;
  
 
         // Total Shoping
@@ -69,6 +81,10 @@ public class DashBoradViewModel : BaseViewModel
         // All Cards
 
         TotalCard = _user.CreditCarts!.Count;
+
+        // Bonus Balance
+
+        BonusBalance = _user.BonusBalance;
 
         // Orders
         

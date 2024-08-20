@@ -27,15 +27,15 @@ public class BasketViewModel : BaseViewModel, INotifyPropertyChanged
     private double? productTotalPayment;
     private double? discount;
     private int? orderCount;
-    private CreditCart? _selectedCard;
-    private ObservableCollection<CreditCart>? _cardsComboBox;
+    private string? _selectedCard;
+    private ObservableCollection<string>? _cardsComboBox = [];
     private ObservableCollection<ProductItem>? productItems = [];
 
 
     
-    public ObservableCollection<CreditCart> CardsComboBox { get => _cardsComboBox!; set {  _cardsComboBox = value; OnPropertyChanged(); } }
+    public ObservableCollection<string> CardsComboBox { get => _cardsComboBox!; set {  _cardsComboBox = value; OnPropertyChanged(); } }
 
-    public CreditCart? SelectedCard
+    public string? SelectedCard
     {
         get => _selectedCard;
         set
@@ -98,7 +98,11 @@ public class BasketViewModel : BaseViewModel, INotifyPropertyChanged
 
         Basket = _basketManager.Basket;
         ProductItems = _basket!.ProductItems;
-        CardsComboBox = _creditCartViewModel.Cards!;
+
+        //Adding ComboBox
+        foreach (var item in _creditCartViewModel.Cards!) CardsComboBox.Add(item.ToString());
+        CardsComboBox.Add("*Bonus Card");
+
 
         ProductTotalPayment = _basket!.ProductTotalPayment;
         Discount = _basket.Discount;
@@ -119,32 +123,47 @@ public class BasketViewModel : BaseViewModel, INotifyPropertyChanged
         {
             if (SelectedCard is not null)
             {
-                notifier.ShowSuccess("The products were received with great effort. Thank you for choosing us, Good luck !!!");
-
-                History newHistory = new()
+                var bonusBalanceToTotal = _creditCartViewModel.NewCard.User!.BonusBalance >= _basket.TotalPayment;
+                
+                if (SelectedCard is "*Bonus Card" )
                 {
-                    Date = DateTime.Now,
-                    TotalAmount = _basket!.TotalPayment,
-                    User = _creditCartViewModel.NewCard.User
-                };
-
-                _historyViewModel.AddHistory(newHistory);
-
-                CreateProductHistories(ProductItems, newHistory);
-
-                BuyProductIncrementQuantity(ProductItems);
-                _basketManager.NewBasket();
-                _menyuViewModel.BasketClik(obj);
+                    if (bonusBalanceToTotal) { Payment(); _menyuViewModel.BasketClik(obj); }
+                    else notifier.ShowError("There is not enough money on the Bonus Card !!!");
+                }
+                else 
+                {
+                    Payment();
+                    _menyuViewModel.BasketClik(obj);
+                }
             }
-            else
-            {
-                notifier.ShowError("Please select Credit Card !!!");
-            }
+            else notifier.ShowError("Please select Credit Card !!!");
+            
         }
-        else
+        else notifier.ShowError("Basket is empty. Order Now !!!"); 
+    }
+
+    private void Payment()
+    {
+        notifier.ShowSuccess("The products were received with great effort. Thank you for choosing us, Good luck !!!");
+
+        History newHistory = new()
         {
-            notifier.ShowError("Basket is empty. Order Now !!!");
-        }
+            Date = DateTime.Now,
+            TotalAmount = _basket!.TotalPayment,
+            User = _creditCartViewModel.NewCard.User,
+            PayMethod = SelectedCard
+        };
+
+        double? bonusCal = (_basket.TotalPayment * 2 ) / 100;
+        _creditCartViewModel.NewCard.User!.BonusBalance += bonusCal;
+
+
+        _historyViewModel.AddHistory(newHistory);
+
+        CreateProductHistories(ProductItems!, newHistory);
+
+        BuyProductIncrementQuantity(ProductItems!);
+        _basketManager.NewBasket();
     }
 
 

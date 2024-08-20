@@ -44,6 +44,13 @@ public class CheckViewModel : BaseViewModel, INotifyPropertyChanged
         set { _total = value; OnPropertyChanged(); }
     }
 
+    private string? _payMethod;
+    public string? PayMethod
+    {
+        get => _payMethod;
+        set { _payMethod = value; OnPropertyChanged(); }
+    }
+
 
     private ObservableCollection<ProductHistory>? products;
     public ObservableCollection<ProductHistory> Products { get => products!; set { products = value; OnPropertyChanged(); } }
@@ -57,6 +64,7 @@ public class CheckViewModel : BaseViewModel, INotifyPropertyChanged
         History = new();
         Time = History.Date;
         Total = History.TotalAmount;
+        PayMethod = History.PayMethod;
         Products = [];
 
         PdfToMailCommand = new RelayCommand(PdfToMailClick);
@@ -72,6 +80,7 @@ public class CheckViewModel : BaseViewModel, INotifyPropertyChanged
         History = history;
         Time = history.Date;
         Total = history.TotalAmount;
+        PayMethod = history.PayMethod;
         foreach (var productHistory in _productHistoryRepository.GetAll())
             if (productHistory.History == history) Products.Add(productHistory);
 
@@ -89,7 +98,6 @@ public class CheckViewModel : BaseViewModel, INotifyPropertyChanged
                 iText.Layout.Document document = new iText.Layout.Document(pdf);
                 document.SetMargins(20, 20, 20, 20);
 
-                // Başlık
                 Paragraph title = new Paragraph("Product Check")
                     .SetFontSize(26)
                     .SetFontColor(ColorConstants.BLACK)
@@ -97,18 +105,15 @@ public class CheckViewModel : BaseViewModel, INotifyPropertyChanged
                     .SetBold();
                 document.Add(title);
 
-                // Tarih
                 Paragraph dateParagraph = new Paragraph($"Time: {Time:dd/MM/yyyy HH:mm:ss}")
                     .SetFontSize(15)
                     .SetMarginTop(10);
                 document.Add(dateParagraph);
 
-                // Ürünler
                 foreach (var product in Products)
                 {
                     Table table = new Table(UnitValue.CreatePercentArray(new float[] { 1, 2 })).UseAllAvailableWidth();
 
-                    // Ürün Bilgileri
                     Paragraph productInfo = new Paragraph()
                         .Add(new Text($"{product.Name}, {product.Description}\n").SetFontSize(15))
                         .Add(new Text($"Price: {product.Price} ₼\n").SetFontSize(15))
@@ -122,7 +127,12 @@ public class CheckViewModel : BaseViewModel, INotifyPropertyChanged
                     document.Add(table);
                 }
 
-                // Toplam
+                Paragraph payMethodParagraph = new Paragraph($"Pay Method: {PayMethod}")
+                    .SetFontSize(15)
+                    .SetMarginTop(10);
+                document.Add(payMethodParagraph);
+
+
                 Paragraph totalParagraph = new Paragraph($"Total: {Total} ₼")
                     .SetFontSize(26)
                     .SetFontColor(ColorConstants.BLACK)
@@ -130,22 +140,22 @@ public class CheckViewModel : BaseViewModel, INotifyPropertyChanged
                     .SetTextAlignment(iText.Layout.Properties.TextAlignment.CENTER)
                     .SetMarginTop(10);
                 document.Add(totalParagraph);
+
             }
         }
 
-        // PDF dosyasını e-posta ile gönder
         try
         {
             MailServices.SendMail(
                 "orxantt044@gmail.com",
                 "Mega Market Products Check",
                 "Please find the attached Product Check PDF.",
-                filename // PDF dosyasını ek olarak gönder
+                filename 
             );
 
             notifier.ShowSuccess("Email Sent Successfully");
         }
-        catch (Exception ex)
+        catch (Exception)
         {
             notifier.ShowError("Something went wrong with the mail. Please try again.");
         }

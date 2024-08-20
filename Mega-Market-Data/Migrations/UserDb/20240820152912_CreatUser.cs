@@ -6,7 +6,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 namespace Mega_Market_Data.Migrations.UserDb
 {
     /// <inheritdoc />
-    public partial class AddUser : Migration
+    public partial class CreatUser : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -23,7 +23,8 @@ namespace Mega_Market_Data.Migrations.UserDb
                     PhoneNumber = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     DateOfBrithday = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     Mail = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    Password = table.Column<string>(type: "nvarchar(max)", nullable: true)
+                    Password = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    BonusBalance = table.Column<double>(type: "float", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -61,7 +62,8 @@ namespace Mega_Market_Data.Migrations.UserDb
                         .Annotation("SqlServer:Identity", "1, 1"),
                     Date = table.Column<DateTime>(type: "datetime2", nullable: true),
                     TotalAmount = table.Column<double>(type: "float", nullable: true),
-                    UserId = table.Column<int>(type: "int", nullable: true)
+                    UserId = table.Column<int>(type: "int", nullable: true),
+                    PayMethod = table.Column<string>(type: "nvarchar(max)", nullable: true)
                 },
                 constraints: table =>
                 {

@@ -104,6 +104,10 @@ public class CreditCartViewModel : BaseViewModel
         {
             if (card.UserId == _user.Id) Cards!.Add(card);
         }
+        var bonusCard = new CreditCart()
+        {
+            IconName = _user.Name,  
+        };
     }
 
     private void CardTypeClick(object? obj)

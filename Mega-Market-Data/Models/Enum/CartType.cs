@@ -10,4 +10,5 @@ public enum CartType
 {
     Visa,
     Mastercard,
+    BonusCard
 }

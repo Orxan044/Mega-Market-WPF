@@ -11,6 +11,8 @@
 
   <ItemGroup>
     <None Remove="Photos\basketIcon.png" />
+    <None Remove="Photos\Bonus Card.png" />
+    <None Remove="Photos\bonus10m.png" />
     <None Remove="Photos\cart.png" />
     <None Remove="Photos\home.png" />
     <None Remove="Photos\mastercard.png" />
@@ -44,6 +46,8 @@
 
   <ItemGroup>
     <Resource Include="Photos\basketIcon.png" />
+    <Resource Include="Photos\Bonus Card.png" />
+    <Resource Include="Photos\bonus10m.png" />
     <Resource Include="Photos\cart.png" />
     <Resource Include="Photos\home.png" />
     <Resource Include="Photos\mastercard.png" />

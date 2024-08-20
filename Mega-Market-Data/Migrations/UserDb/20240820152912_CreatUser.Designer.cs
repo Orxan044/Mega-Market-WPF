@@ -12,8 +12,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Mega_Market_Data.Migrations.UserDb
 {
     [DbContext(typeof(UserDbContext))]
-    [Migration("20240818135503_AddUser")]
-    partial class AddUser
+    [Migration("20240820152912_CreatUser")]
+    partial class CreatUser
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -68,6 +68,9 @@ namespace Mega_Market_Data.Migrations.UserDb
 
                     b.Property<DateTime?>("Date")
                         .HasColumnType("datetime2");
+
+                    b.Property<string>("PayMethod")
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<double?>("TotalAmount")
                         .HasColumnType("float");
@@ -127,6 +130,9 @@ namespace Mega_Market_Data.Migrations.UserDb
                         .HasColumnType("int");
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<double>("BonusBalance")
+                        .HasColumnType("float");
 
                     b.Property<string>("DateOfBrithday")
                         .HasColumnType("nvarchar(max)");

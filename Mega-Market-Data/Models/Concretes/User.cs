@@ -12,6 +12,7 @@ public class User : BaseEntity
     public string? DateOfBrithday { get; set; }
     public string? Mail { get; set; }
     public string? Password { get; set; }
+    public double? BonusBalance { get; set; } = 0;
     public ObservableCollection<CreditCart>? CreditCarts { get; set; } = [];
     public ObservableCollection<History>? Histories { get; set; } = [];
 

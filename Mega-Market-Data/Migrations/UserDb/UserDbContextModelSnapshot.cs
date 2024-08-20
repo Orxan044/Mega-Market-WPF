@@ -66,6 +66,9 @@ namespace Mega_Market_Data.Migrations.UserDb
                     b.Property<DateTime?>("Date")
                         .HasColumnType("datetime2");
 
+                    b.Property<string>("PayMethod")
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<double?>("TotalAmount")
                         .HasColumnType("float");
 
@@ -124,6 +127,9 @@ namespace Mega_Market_Data.Migrations.UserDb
                         .HasColumnType("int");
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<double>("BonusBalance")
+                        .HasColumnType("float");
 
                     b.Property<string>("DateOfBrithday")
                         .HasColumnType("nvarchar(max)");

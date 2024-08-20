@@ -11,5 +11,6 @@ public class History : BaseEntity
     public double? TotalAmount { get; set; }
     public int? UserId { get; set; }
     public User? User { get; set; }
+    public string? PayMethod { get; set; }
 
 }
