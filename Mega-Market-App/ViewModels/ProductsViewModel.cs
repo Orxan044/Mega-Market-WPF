@@ -14,101 +14,64 @@ namespace Mega_Market_App.ViewModels;
 public class ProductsViewModel : BaseViewModel , INotifyPropertyChanged
 {
 
-
-    //public ICollectionView _categoriesView { get; set; }
-
-    //private string? _searchText;
-    //public string SearchText
-    //{
-    //    get => _searchText!;
-    //    set
-    //    {
-    //        _searchText = value;
-    //        OnPropertyChanged();
-    //        _categoriesView.Refresh();
-    //    }
-    //}
-
-    //private double? _min;
-    //public double? MinPrice
-    //{
-    //    get => _min!;
-    //    set
-    //    {
-    //        if (value <= GetMaxProductPrice()) 
-    //        {
-    //            _min = value;
-    //            OnPropertyChanged();
-
-    //        }
-    //        else
-    //        {
-    //            _min = GetMaxProductPrice();
-    //        }
-    //    }
-    //}
-
-    //private double? _max;
-    //public double? MaxPrice
-    //{
-    //    get => GetMaxProductPrice();
-    //    set
-    //    {
-    //        if (value >= GetMinProductPrice())
-    //        {
-    //            _max = value;
-    //            OnPropertyChanged();
-    //        }
-    //        else
-    //        {
-    //            _max = GetMinProductPrice();
-    //        }
-    //    }
-    //}
-
-    //private bool _showSpecialOnly;
-    //public bool ShowSpecialOnly
-    //{
-    //    get => _showSpecialOnly;
-    //    set { _showSpecialOnly = value; OnPropertyChanged(); _categoriesView.Refresh(); }
-    //}
-
-    //private bool _isFilterExpanded;
-    //public bool IsFilterExpanded
-    //{
-    //    get => _isFilterExpanded;
-    //    set
-    //    {
-    //        if (_isFilterExpanded != value)
-    //        {
-    //            _isFilterExpanded = value;
-    //            OnPropertyChanged(nameof(_isFilterExpanded));
-
-    //            if (_isFilterExpanded!)
-    //            {
-
-    //            }
-    //            //else
-    //            //{
-    //            //    // Expander kapandığında yapılacak işlemler
-    //            //}
-    //        }
-    //    }
-    //}
-
-
-    //public RelayCommand MinMaxOkCommand { get; set; }
-
-
     public RelayCommand AddBasketCommand {get; set;}
-
+    public RelayCommand ProductsCommand {get; set;}
+    public RelayCommand MinMaxOkCommand { get; set; }
 
     private Category? _selectedCategory;
     public Category SelectedCategory
     {
         get => _selectedCategory!;
-        set { _selectedCategory = value; OnPropertyChanged(); }
+        set { _selectedCategory = value; OnPropertyChanged(); AddProducts(); }
     }
+
+    private string? _searchText;
+    private ICollectionView _productsView;
+
+    public string SearchText
+    {
+        get => _searchText!;
+        set
+        {
+            _searchText = value;
+            OnPropertyChanged();
+            _productsView.Refresh();
+        }
+    }
+
+    private double? _minPrice;
+    public double? MinPrice
+    {
+        get => _minPrice;
+        set
+        {
+            if (value < 0)
+                _minPrice = 0;
+            else if (value > MaxPrice)
+                _minPrice = MaxPrice; // MinPrice, MaxPrice'dan büyük olamaz
+            else
+                _minPrice = value;
+
+            OnPropertyChanged();
+        }
+    }
+
+    private double? _maxPrice;
+    public double? MaxPrice
+    {
+        get => _maxPrice;
+        set
+        {
+            var maxProductPrice = Products.Any() ? Products.Max(p => p.Price) : 0;
+            if (value > maxProductPrice)
+                _maxPrice = maxProductPrice;
+            else
+                _maxPrice = value;
+            OnPropertyChanged();
+        }
+    }
+
+
 
     private readonly BasketManager _basketManager;
     private ObservableCollection<Product>? products;
@@ -121,13 +84,33 @@ public class ProductsViewModel : BaseViewModel , INotifyPropertyChanged
         Products = [];
         _basketManager = basketManager;
         _productRepository = productRepository;
-        _menyuViewModel = menyuViewModel;
-        //_basketViewModel = basketViewModel;
+        _menyuViewModel = menyuViewModel;     
         
         AddBasketCommand = new RelayCommand(AddBasketClick);
-        //MinMaxOkCommand = new RelayCommand(MinMaxOkClick);
+        ProductsCommand = new RelayCommand(ProductsClick);
+        MinMaxOkCommand = new RelayCommand(FilterPriceProducts);
+
+        _productsView = CollectionViewSource.GetDefaultView(Products);
+        _productsView.Filter = FilterCategories;
     }
 
+    private void ProductsClick(object? obj)
+    {
+        AddProducts();
+    }
+
+    private void FilterPriceProducts(object? obj)
+    {
+        Products.Clear();
+        if (MinPrice is not null && MaxPrice is not null && MinPrice < MaxPrice)
+        {
+            foreach (var product in _productRepository.GetAll())
+            {
+                if(product.Price >= MinPrice) Products.Add(product);
+            }
+        }
+        else notifier.ShowError("Filter Information Not Correctly !!! ");
+    }
 
     public void AddProducts()
     {
@@ -140,6 +123,16 @@ public class ProductsViewModel : BaseViewModel , INotifyPropertyChanged
         }
     }
 
+    private bool FilterCategories(object obj)
+    {
+        if (obj is Product product)
+        {
+            return string.IsNullOrEmpty(SearchText) || product.Name!.Contains(SearchText, StringComparison.OrdinalIgnoreCase) ||
+            product.Id.ToString()!.Contains(SearchText, StringComparison.OrdinalIgnoreCase);
+        }
+
+        return false;
+    }
 
 
 
@@ -154,47 +147,4 @@ public class ProductsViewModel : BaseViewModel , INotifyPropertyChanged
         }
     }
 
-    //private void MinMaxOkClick(object? obj)
-    //{
-    //    ObservableCollection<Product>? _saveProducts = Products;
-
-    //    try
-    //    {
-    //        var ProductsFilter = new ObservableCollection<Product>();
-
-    //        if (IsFilterExpanded)
-    //        {
-    //            if (MaxPrice > MinPrice && MaxPrice is not null && MinPrice is not null)
-    //            {
-    //                foreach (var product in Products)
-    //                {
-    //                    if (product.Price >= MinPrice && product.Price <= MaxPrice)
-    //                    {
-    //                        ProductsFilter.Add(product);
-    //                    }
-    //                }
-    //            }
-    //        }
-    //        else
-    //        {
-    //            ProductsFilter = new ObservableCollection<Product>(Products);
-    //        }
-
-    //        Products = ProductsFilter;
-    //    }
-    //    catch (Exception)
-    //    {
-
-    //    }
-
-    //}
-    //private double GetMinProductPrice()
-    //{
-    //    return (double)(Products.Any() ? Products.Min(p => p.Price) : 0)!;
-    //}
-
-    //private double GetMaxProductPrice()
-    //{
-    //    return (double)(Products.Any() ? Products.Max(p => p.Price) : double.MaxValue)!;
-    //}
 }

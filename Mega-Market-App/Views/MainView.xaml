@@ -4,6 +4,7 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Mega_Market_App.Views"
+        Icon="pack://application:,,,/Mega-Market-App;component/Photos/mLogo.png"
         mc:Ignorable="d" WindowStyle="None" WindowStartupLocation="CenterScreen" ResizeMode="NoResize"
         Title="MainView" Height="550" Width="980">
     

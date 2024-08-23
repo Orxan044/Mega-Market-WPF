@@ -12,8 +12,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Mega_Market_Data.Migrations.UserDb
 {
     [DbContext(typeof(UserDbContext))]
-    [Migration("20240820152912_CreatUser")]
-    partial class CreatUser
+    [Migration("20240822073630_CUser")]
+    partial class CUser
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -85,6 +85,33 @@ namespace Mega_Market_Data.Migrations.UserDb
                     b.ToTable("Histories");
                 });
 
+            modelBuilder.Entity("Mega_Market_Data.Models.Concretes.Message", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<string>("Messages")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<DateTime?>("SendTime")
+                        .HasColumnType("datetime2");
+
+                    b.Property<int?>("Type")
+                        .HasColumnType("int");
+
+                    b.Property<int?>("UserId")
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("UserId");
+
+                    b.ToTable("Messages");
+                });
+
             modelBuilder.Entity("Mega_Market_Data.Models.Concretes.ProductHistory", b =>
                 {
                     b.Property<int>("Id")
@@ -131,7 +158,7 @@ namespace Mega_Market_Data.Migrations.UserDb
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
-                    b.Property<double>("BonusBalance")
+                    b.Property<double?>("BonusBalance")
                         .HasColumnType("float");
 
                     b.Property<string>("DateOfBrithday")
@@ -180,6 +207,16 @@ namespace Mega_Market_Data.Migrations.UserDb
                     b.Navigation("User");
                 });
 
+            modelBuilder.Entity("Mega_Market_Data.Models.Concretes.Message", b =>
+                {
+                    b.HasOne("Mega_Market_Data.Models.Concretes.User", "User")
+                        .WithMany("Messages")
+                        .HasForeignKey("UserId")
+                        .OnDelete(DeleteBehavior.NoAction);
+
+                    b.Navigation("User");
+                });
+
             modelBuilder.Entity("Mega_Market_Data.Models.Concretes.ProductHistory", b =>
                 {
                     b.HasOne("Mega_Market_Data.Models.Concretes.History", null)
@@ -205,6 +242,8 @@ namespace Mega_Market_Data.Migrations.UserDb
                     b.Navigation("CreditCarts");
 
                     b.Navigation("Histories");
+
+                    b.Navigation("Messages");
                 });
 #pragma warning restore 612, 618
         }

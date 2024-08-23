@@ -36,14 +36,9 @@ public partial class SplashView : Window
         progressBar.Value += 10;
         if (progressBar.Value == 100)
         {
-            //var MainWindow = App.Current.MainWindow;
-            //MainWindow.Close();
-            //Application.Current.MainWindow.Close();
-            //Environment.Exit(0);
             Close();
 
             Application.Current.MainWindow = new MainView();
-            //var newWindow = Application.Current.MainWindow;
             Application.Current.MainWindow.DataContext = new MainViewModel();
             Application.Current.MainWindow.Show();
 

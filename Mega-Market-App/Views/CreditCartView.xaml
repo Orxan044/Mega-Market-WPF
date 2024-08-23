@@ -39,22 +39,22 @@
                             <Border Grid.Row="1" Style="{StaticResource cardBorder}" Margin="10,21,170,0">
                                 <Border.Background>
                                     <LinearGradientBrush StartPoint="0,0" EndPoint="1,1">
-                                        <GradientStop Color="#D489FF" Offset="-0.2" />
-                                        <GradientStop Color="#7985FF" Offset="0.5" />
+                                        <GradientStop Color="#4361ee" Offset="-0.2" />
+                                        <GradientStop Color="#4cc9f0" Offset="0.5" />
                                         <GradientStop Color="#6AD8FD" Offset="1" />
                                     </LinearGradientBrush>
                                 </Border.Background>
 
                                 <Grid>
-                                    <fa:ImageAwesome Icon="{Binding IconName}" HorizontalAlignment="Left" VerticalAlignment="Top" Foreground="White" Opacity="0.9" Width="25" Margin="15 8 0 0"/>
-                                    <fa:ImageAwesome Icon="CheckCircle" HorizontalAlignment="Right" VerticalAlignment="Top" Foreground="White" Width="25" Margin="0 5 53 0"/>
-                                    <TextBlock Text="Wally" FontWeight="Bold" Foreground="#FFFFFF" FontSize="12" HorizontalAlignment="Right" VerticalAlignment="Top" Margin="0 10 15 0"/>
+                                    <fa:ImageAwesome  Icon="{Binding IconName}" HorizontalAlignment="Left" VerticalAlignment="Top" Foreground="White" Opacity="0.9" Width="25" Margin="15 8 0 0"/>
+                                    <fa:ImageAwesome Icon="CheckCircle" HorizontalAlignment="Right" VerticalAlignment="Top" Foreground="Black" Width="25" Margin="0 5 53 0"/>
+                                    <TextBlock Text="Wally" FontWeight="Bold" Foreground="Black" FontSize="12" HorizontalAlignment="Right" VerticalAlignment="Top" Margin="0 10 15 0"/>
 
                                     <StackPanel Orientation="Horizontal" VerticalAlignment="Center" HorizontalAlignment="Center">
-                                        <TextBlock Text="{Binding Code}" FontSize="15" Margin="17 0" Foreground="#fcfcfc" />
+                                        <TextBlock Text="{Binding Code}" FontSize="15" Margin="17 0" Foreground="#000000" />
                                     </StackPanel>
 
-                                    <TextBlock Text="$" Style="{StaticResource textLabel}" FontSize="20" FontWeight="SemiBold" VerticalAlignment="Bottom" HorizontalAlignment="Left" />
+                                    <TextBlock Foreground="Black" Text="$" Style="{StaticResource textLabel}" FontSize="20" FontWeight="SemiBold" VerticalAlignment="Bottom" HorizontalAlignment="Left" />
 
                                     <fa:ImageAwesome Icon="Close" HorizontalAlignment="Right" VerticalAlignment="Top" Foreground="Red" Width="15" Margin="0,108,9,0">
                                         <i:Interaction.Triggers>
@@ -74,19 +74,17 @@
 
 
 
-
-
         </Grid>
 
 
         <!--Card Section-->
-        <Grid Grid.Column="1" Background="#4B4643" Grid.Row="1">
+        <Grid Grid.Column="1" Background="{DynamicResource PrimaryBackgroundColor}" Grid.Row="1">
             <Grid.Effect>
                 <DropShadowEffect ShadowDepth="10" BlurRadius="50"/>
             </Grid.Effect>
 
-            <!--Ellipses-->
-            <Border HorizontalAlignment="Left" VerticalAlignment="Top" Width="30" Height="130" Margin="-30 50 0 0" Background="#4B4643" CornerRadius="10 0 0 10" Padding="10 20 5 20">
+
+            <Border HorizontalAlignment="Left" VerticalAlignment="Top" Width="30" Height="130" Margin="-30 50 0 0" Background="#2196F3" CornerRadius="10 0 0 10" Padding="10 20 5 20">
                 <Grid>
                     <Grid.RowDefinitions>
                         <RowDefinition Height="*"/>
@@ -100,33 +98,30 @@
                 </Grid>
             </Border>
 
-            <!--Inputs-->
             <StackPanel Margin="50,50,50,0" VerticalAlignment="Top" Height="368">
-                <TextBlock Text="Add Card" Foreground="#F1C40F" FontWeight="SemiBold" FontSize="24" Margin="0 0 0 70"/>
+                <TextBlock Text="Add Card" Foreground="#000000" FontWeight="SemiBold" FontSize="24" Margin="0 0 0 70"/>
 
-                <TextBlock Text="Select Card Type" Style="{StaticResource titleText}"/>
+                <TextBlock Text="Select Card Type" Foreground="#000000" Style="{StaticResource titleText}"/>
                 <Grid Margin="0 15 0 30">
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="*"/>
                         <ColumnDefinition Width="*"/>
                     </Grid.ColumnDefinitions>
 
-                    <!-- MasterCard -->
                     <RadioButton GroupName="CardType" Margin="10"
-                     Command="{Binding CardTypeCommand}" 
+                     Command="{Binding CardTypeCommand}" Background="#000000" 
                      CommandParameter="CcMasterCard">
-                        <Image Source="pack://application:,,,/Mega-Market-App;component/Photos/mastercard.png" Width="50" Height="30"/>
+                        <Image  Source="pack://application:,,,/Mega-Market-App;component/Photos/mastercard.png" Width="50" Height="30"/>
                     </RadioButton>
 
-                    <!-- Visa -->
                     <RadioButton Grid.Column="1" GroupName="CardType" Margin="10" 
-                     Command="{Binding CardTypeCommand}" 
+                     Command="{Binding CardTypeCommand}" Background="#000000" 
                      CommandParameter="CcVisa">
                         <Image Source="pack://application:,,,/Mega-Market-App;component/Photos/visa.png" Width="33" Height="30"/>
                     </RadioButton>
                 </Grid>
 
-                <TextBlock Text="Card Number" Style="{StaticResource titleText}"/>
+                <TextBlock Text="Card Number" Foreground="#000000" Style="{StaticResource titleText}"/>
                 <TextBox Text="{Binding NewCard.Code}" Margin="0 5 0 30"/>
 
                 <Grid>
@@ -136,18 +131,18 @@
                     </Grid.ColumnDefinitions>
 
                     <StackPanel>
-                        <TextBlock Text="Expire Date" Style="{StaticResource titleText}"/>
+                        <TextBlock Text="Expire Date"  Foreground="#000000" Style="{StaticResource titleText}"/>
                         <TextBox Text="{Binding NewCard.EndYear}" Margin="0 5 0 0"/>
                     </StackPanel>
 
                     <StackPanel Grid.Column="1" Margin="30 0 0 0" Width="50">
-                        <TextBlock Text="CVV" Style="{StaticResource titleText}"/>
+                        <TextBlock Text="CVV"  Foreground="#000000" Style="{StaticResource titleText}"/>
                         <TextBox Text="{Binding NewCard.CVV}" Margin="0 5 0 0"/>
                     </StackPanel>
                 </Grid>
             </StackPanel>
 
-            <Button Command="{Binding AddCardCommand}" Content="Add Card" FontSize="20" Background="#F1C40F" BorderBrush="#F1C40F"  Height="43" Margin="15,440,15,0" VerticalAlignment="Top"/>
+            <Button Command="{Binding AddCardCommand}" Content="Add Card" FontSize="20" Background="#FFAB00" BorderBrush="#FFAB00"  Height="43" Margin="15,440,15,0" VerticalAlignment="Top"/>
         </Grid>
 
 

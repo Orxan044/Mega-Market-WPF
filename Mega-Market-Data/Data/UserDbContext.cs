@@ -13,6 +13,7 @@ public class UserDbContext : DbContext
     public DbSet<User> Users { get; set; }
     public DbSet<CreditCart> CreditCarts { get; set; }
     public DbSet<History> Histories { get; set; }
+    public DbSet<Message> Messages { get; set; }
     public DbSet<ProductHistory> ProductHistories { get; set; }
 
 
@@ -24,6 +25,12 @@ public class UserDbContext : DbContext
         modelBuilder.Entity<CreditCart>()
             .HasOne(c => c.User)
             .WithMany(u => u.CreditCarts)
+            .HasForeignKey(c => c.UserId)
+            .OnDelete(DeleteBehavior.NoAction);
+
+        modelBuilder.Entity<Message>()
+            .HasOne(c => c.User)
+            .WithMany(u => u.Messages)
             .HasForeignKey(c => c.UserId)
             .OnDelete(DeleteBehavior.NoAction);
 

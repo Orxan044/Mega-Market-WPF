@@ -89,6 +89,8 @@ public class SettingsViewModel : BaseViewModel
             notifier.ShowSuccess("Successfully Changed !!!");
             SettingsUser();
             _loginViewModel.UserRepository.SaveChanges();
+            NewPassword = null!;
+            NewMail = null!;
         }
         else if (_randomCode is null)
         {

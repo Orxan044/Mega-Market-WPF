@@ -33,6 +33,7 @@ public partial class App : Application
         Container.RegisterSingleton<IRepository<User, UserDbContext>, Repository<User, UserDbContext>>();
         Container.RegisterSingleton<IRepository<CreditCart, UserDbContext>, Repository<CreditCart, UserDbContext>>();
         Container.RegisterSingleton<IRepository<History, UserDbContext>, Repository<History, UserDbContext>>();
+        Container.RegisterSingleton<IRepository<Message, UserDbContext>, Repository<Message, UserDbContext>>();
         Container.RegisterSingleton<IRepository<ProductHistory, UserDbContext>, Repository<ProductHistory, UserDbContext>>();
 
         Container.RegisterSingleton<IRepository<Product, MarketDbContext>, Repository<Product, MarketDbContext>>();
@@ -54,6 +55,7 @@ public partial class App : Application
         Container.Register<HistoryViewModel>();
         Container.Register<CheckViewModel>();
         Container.Register<SettingsViewModel>();
+        Container.Register<MessageViewModel>();
     }
 
     private static void AddViews()
@@ -71,6 +73,7 @@ public partial class App : Application
         Container.RegisterSingleton<HistoryView>();
         Container.RegisterSingleton<CheckView>();
         Container.RegisterSingleton<SettingsView>();
+        Container.RegisterSingleton<MessageView>();
     }
 
     protected override void OnStartup(StartupEventArgs e)

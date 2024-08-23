@@ -23,6 +23,7 @@ public class MenyuViewModel : BaseViewModel
 
     #region RelayCommand
     public RelayCommand DashBoardCommand { get; set; }
+    public RelayCommand MessageCommand { get; set; }
     public RelayCommand CategoriesCommand { get; set; }
     public RelayCommand ProductsCommand { get; set; }
     public RelayCommand ExitCommand { get; set; }
@@ -36,6 +37,7 @@ public class MenyuViewModel : BaseViewModel
 
         #region RelayCommand
         DashBoardCommand = new RelayCommand(DashBoardClick);
+        MessageCommand = new RelayCommand(MessageClick);
         CategoriesCommand = new RelayCommand(CategoriesClick);
         ProductsCommand = new RelayCommand(ProductsClick);
         ExitCommand = new RelayCommand(ExitClick);
@@ -44,10 +46,17 @@ public class MenyuViewModel : BaseViewModel
         CurrentPage2 = App.Container.GetInstance<DashBoardView>();
         CurrentPage2.DataContext = App.Container.GetInstance<DashBoardViewModel>();
     }
+
+
     private void DashBoardClick(object? obj)
     {
         CurrentPage2 = App.Container.GetInstance<DashBoardView>();
         CurrentPage2.DataContext = App.Container.GetInstance<DashBoardViewModel>();
+    }
+    private void MessageClick(object? obj)
+    {
+        CurrentPage2 = App.Container.GetInstance<MessageView>();
+        CurrentPage2.DataContext = App.Container.GetInstance<MessageViewModel>();
     }
 
     public void CategoriesClick(object? obj)

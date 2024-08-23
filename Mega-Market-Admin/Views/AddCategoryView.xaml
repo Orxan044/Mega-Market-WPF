@@ -6,25 +6,23 @@
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
       xmlns:local="clr-namespace:Mega_Market_Admin.Views"
       mc:Ignorable="d" 
-      d:DesignHeight="500" d:DesignWidth="750"
+      d:DesignHeight="460" d:DesignWidth="750"
       Title="AddCategoryView">
 
-    <Grid Background="#5969A2">
-        <Button  Width="40"
-                Background="{x:Null}" BorderBrush="{x:Null}"
-                Padding="0" Foreground="Black"  Height="48"
-                Command="{Binding BackCommand}" Margin="23,29,690,435"/>
-        <material:PackIcon Kind="ArrowBack" Height="48" Width="40" Margin="23,29,0,0"/>
+    <Grid Background="#41518F">
+        <Button Command="{Binding BackCommand}" VerticalAlignment="Top" HorizontalAlignment="Left"  Width="35" Height="38" Background="{x:Null}" BorderBrush="{x:Null}" Padding="0" Foreground="#000000" >
+            <material:PackIcon Kind="ArrowLeft" Height="38" Width="40" VerticalAlignment="Center"/>
+        </Button>
 
         <TextBlock Foreground="#CCD7FF" VerticalAlignment="Top" HorizontalAlignment="Center" Text="Add Category" Margin="0,29,0,0" FontSize="26" FontWeight="SemiBold" FontFamily="Sitka Heading"/>
 
         <Image Source="{Binding NewCategory.ImagePath}" Height="300" Width="300" Margin="29,100,421,100" ></Image>
 
 
-        <TextBox Text="{Binding NewCategory.ImagePath}" Width="340" Margin="358,174,52,274" FontSize="18" BorderBrush="#C5C8CC" material:HintAssist.FloatingOffset="0,-20" material:HintAssist.Hint="Image Path" Style="{StaticResource MaterialDesignFloatingHintTextBox}" />
-        <TextBox Text="{Binding NewCategory.Name}" Width="340" Margin="358,250,52,198" FontSize="18" BorderBrush="#C5C8CC" material:HintAssist.FloatingOffset="0,-20" material:HintAssist.Hint="Category Name" Style="{StaticResource MaterialDesignFloatingHintTextBox}" />
+        <TextBox Text="{Binding NewCategory.ImagePath}" Width="340" Margin="358,174,52,230" FontSize="18" BorderBrush="#C5C8CC" material:HintAssist.FloatingOffset="0,-20" material:HintAssist.Hint="Image Path" Style="{StaticResource MaterialDesignFloatingHintTextBox}" />
+        <TextBox Text="{Binding NewCategory.Name}" Width="340" Margin="358,250,52,156" FontSize="18" BorderBrush="#C5C8CC" material:HintAssist.FloatingOffset="0,-20" material:HintAssist.Hint="Category Name" Style="{StaticResource MaterialDesignFloatingHintTextBox}" />
 
-        <Button Content="Add Category" Height="40" FontSize="18" Padding="0 0 0 5"  Margin="425,345,123,115" Command="{Binding AddCategoryCommand}" />
+        <Button Content="Add Category" FontSize="18" Padding="0 0 0 5"  Margin="425,345,123,77" Command="{Binding AddCategoryCommand}" />
 
     </Grid>
 </Page>

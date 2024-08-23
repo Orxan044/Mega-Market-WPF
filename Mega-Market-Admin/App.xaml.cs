@@ -4,8 +4,11 @@ using Mega_Market_Admin.Views;
 using Mega_Market_Data.Data;
 using Mega_Market_Data.Models.Concretes;
 using Mega_Market_Data.Repositoies;
+using Microsoft.VisualBasic.ApplicationServices;
 using SimpleInjector;
 using System.Windows;
+using StartupEventArgs = System.Windows.StartupEventArgs;
+using User = Mega_Market_Data.Models.Concretes.User;
 
 
 namespace Mega_Market_Admin;
@@ -25,10 +28,15 @@ public partial class App : Application
     {
         Container.RegisterSingleton<AdminDbContext>();
         Container.RegisterSingleton<MarketDbContext>();
+        Container.RegisterSingleton<UserDbContext>();
 
         Container.RegisterSingleton<IRepository<Admin, AdminDbContext>, Repository<Admin, AdminDbContext>>();
         Container.RegisterSingleton<IRepository<Category, MarketDbContext>, Repository<Category, MarketDbContext>>();
         Container.RegisterSingleton<IRepository<Product, MarketDbContext>, Repository<Product, MarketDbContext>>();
+
+        Container.RegisterSingleton<IRepository<User, UserDbContext>, Repository<User, UserDbContext>>();
+        Container.RegisterSingleton<IRepository<Message, UserDbContext>, Repository<Message, UserDbContext>>();
+        Container.RegisterSingleton<IRepository<History, UserDbContext>, Repository<History, UserDbContext>>();
 
         Container.RegisterSingleton<INavigationService, NavigationService>();
     }
@@ -44,6 +52,7 @@ public partial class App : Application
         Container.Register<ProductsViewModel>();
         Container.Register<ProductShowViewModel>();
         Container.Register<AddProductViewModel>();
+        Container.Register<MessageViewModel>();
     }
 
     private static void AddViews()
@@ -57,6 +66,7 @@ public partial class App : Application
         Container.RegisterSingleton<ProductsView>();
         Container.RegisterSingleton<ProductShowView>();
         Container.RegisterSingleton<AddProductView>();
+        Container.RegisterSingleton<MessageView>();
     }
 
     protected override void OnStartup(StartupEventArgs e)

@@ -6,21 +6,12 @@
       xmlns:material="http://materialdesigninxaml.net/winfx/xaml/themes"
       xmlns:local="clr-namespace:Mega_Market_Admin.Views"
       mc:Ignorable="d" 
-      d:DesignHeight="500" d:DesignWidth="750"
+      d:DesignHeight="460" d:DesignWidth="750"
       Title="CategoryView">
 
-    <Grid Background="#5969A2">
+    <Grid Background="#41518F">
 
-        <TextBlock FontSize="26" Foreground="#CCD7FF" Margin="13,17,0,445" Text="Categories" HorizontalAlignment="Left" Width="126"/>
-
-        <!--<material:Badged Badge="{material:PackIcon Kind=Add}" 
-                    BadgeBackground="LightGreen" RenderTransformOrigin="0.473,-0.04" Width="385" >
-            <Button BorderBrush="Transparent" Foreground="White" FontWeight="Bold" Content="ADD CATEGORY"
-                        Command="{Binding AddDriverClickCommand}" Width="174"
-                        Style="{StaticResource MaterialDesignRaisedSecondaryButton}"/>
-        </material:Badged>-->
-        <!--<Button Content="Add Category" Style="{StaticResource topMenuButton }" Background="Green"  Foreground="#ffffff" Width="120" Margin="610,52,20,418"/>-->
-
+        <TextBlock FontSize="26" Foreground="#CCD7FF" Margin="13,17,0,408" Text="Categories" HorizontalAlignment="Left" Width="126"/>
 
         <material:Badged Badge="{material:PackIcon Kind=AddBold}" 
                     HorizontalAlignment="Right" VerticalAlignment="Top"
@@ -44,7 +35,7 @@
             </material:HintAssist.Hint>
         </TextBox>
 
-        <ListView FontSize="18" Foreground="Black" ItemsSource="{Binding Categories}" Width="375" Height="380" VerticalAlignment="Bottom" HorizontalAlignment="Left" x:Name="ListView1">
+        <ListView FontSize="18" Foreground="Black" ItemsSource="{Binding Categories}" Width="375" Height="335" VerticalAlignment="Bottom" HorizontalAlignment="Left" x:Name="ListView1">
             <ListView.View>
                 <GridView>
                     <GridViewColumn  Header="Id" DisplayMemberBinding="{Binding Id}" Width="80"></GridViewColumn>

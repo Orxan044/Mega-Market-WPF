@@ -6,7 +6,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 namespace Mega_Market_Data.Migrations.UserDb
 {
     /// <inheritdoc />
-    public partial class CreatUser : Migration
+    public partial class CUser : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -24,7 +24,7 @@ namespace Mega_Market_Data.Migrations.UserDb
                     DateOfBrithday = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     Mail = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     Password = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    BonusBalance = table.Column<double>(type: "float", nullable: false)
+                    BonusBalance = table.Column<double>(type: "float", nullable: true)
                 },
                 constraints: table =>
                 {
@@ -76,6 +76,27 @@ namespace Mega_Market_Data.Migrations.UserDb
                 });
 
             migrationBuilder.CreateTable(
+                name: "Messages",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    Type = table.Column<int>(type: "int", nullable: true),
+                    Messages = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    SendTime = table.Column<DateTime>(type: "datetime2", nullable: true),
+                    UserId = table.Column<int>(type: "int", nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Messages", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_Messages_Users_UserId",
+                        column: x => x.UserId,
+                        principalTable: "Users",
+                        principalColumn: "Id");
+                });
+
+            migrationBuilder.CreateTable(
                 name: "ProductHistories",
                 columns: table => new
                 {
@@ -115,6 +136,11 @@ namespace Mega_Market_Data.Migrations.UserDb
                 column: "UserId");
 
             migrationBuilder.CreateIndex(
+                name: "IX_Messages_UserId",
+                table: "Messages",
+                column: "UserId");
+
+            migrationBuilder.CreateIndex(
                 name: "IX_ProductHistories_HistoryId",
                 table: "ProductHistories",
                 column: "HistoryId");
@@ -130,6 +156,9 @@ namespace Mega_Market_Data.Migrations.UserDb
         {
             migrationBuilder.DropTable(
                 name: "CreditCarts");
+
+            migrationBuilder.DropTable(
+                name: "Messages");
 
             migrationBuilder.DropTable(
                 name: "ProductHistories");

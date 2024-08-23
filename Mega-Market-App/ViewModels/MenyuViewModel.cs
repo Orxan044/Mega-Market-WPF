@@ -26,37 +26,26 @@ public class MenyuViewModel : BaseViewModel , INotifyPropertyChanged
     public RelayCommand ProductsCommand { get; set; }
     public RelayCommand BasketCommand { get; set; }
     public RelayCommand HistoryCommand { get; set; }
+    public RelayCommand MessageCommand { get; set; }
     public RelayCommand CardsCommand { get; set; }
     public RelayCommand SettingsCommand { get; set; }
     public RelayCommand CloseCommand { get; set; }
 
     private readonly LoginViewModel _loginViewModel;
 
-    private string? _userName;
-
-    public string? UserName
-    {
-        get => _userName; 
-        set { _userName = value; OnPropertyChanged(); }
-    }
-
     public MenyuViewModel(LoginViewModel loginViewModel)
     {
         _loginViewModel = loginViewModel;
-
-        UserName = _loginViewModel.UserLogin.Name;
 
         DashBoardCommand = new RelayCommand(DashBoardClick);
         CategoryCommand = new RelayCommand(CategoryClik);
         ProductsCommand = new RelayCommand(ProductsClik);
         BasketCommand = new RelayCommand(BasketClik);
-        CloseCommand = new RelayCommand(CloseClik);
+        MessageCommand = new RelayCommand(MessageClick);
         HistoryCommand = new RelayCommand(HistoryClik);
         CardsCommand = new RelayCommand(CardsClik);
         SettingsCommand = new RelayCommand(SettingsClik);
-
-        CurrentPage2 = App.Container.GetInstance<DashBoardView>();
-        CurrentPage2.DataContext = App.Container.GetInstance<DashBoradViewModel>();
+        CloseCommand = new RelayCommand(CloseClik);
 
         
     }
@@ -87,6 +76,11 @@ public class MenyuViewModel : BaseViewModel , INotifyPropertyChanged
     {
         CurrentPage2 = App.Container.GetInstance<HistoryView>();
         CurrentPage2.DataContext = App.Container.GetInstance<HistoryViewModel>();
+    }
+    private void MessageClick(object? obj)
+    {
+        CurrentPage2 = App.Container.GetInstance<MessageView>();
+        CurrentPage2.DataContext = App.Container.GetInstance<MessageViewModel>();
     }
 
     public void CardsClik(object? obj)

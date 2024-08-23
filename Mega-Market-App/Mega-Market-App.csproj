@@ -16,6 +16,7 @@
     <None Remove="Photos\cart.png" />
     <None Remove="Photos\home.png" />
     <None Remove="Photos\mastercard.png" />
+    <None Remove="Photos\message.png" />
     <None Remove="Photos\mLogo.png" />
     <None Remove="Photos\settings.png" />
     <None Remove="Photos\visa.png" />
@@ -51,6 +52,7 @@
     <Resource Include="Photos\cart.png" />
     <Resource Include="Photos\home.png" />
     <Resource Include="Photos\mastercard.png" />
+    <Resource Include="Photos\message.png" />
     <Resource Include="Photos\mLogo.png" />
     <Resource Include="Photos\settings.png" />
     <Resource Include="Photos\visa.png" />

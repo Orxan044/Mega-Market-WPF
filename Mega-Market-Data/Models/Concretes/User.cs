@@ -15,5 +15,6 @@ public class User : BaseEntity
     public double? BonusBalance { get; set; } = 0;
     public ObservableCollection<CreditCart>? CreditCarts { get; set; } = [];
     public ObservableCollection<History>? Histories { get; set; } = [];
+    public ObservableCollection<Message>? Messages{ get; set; } = [];
 
 }

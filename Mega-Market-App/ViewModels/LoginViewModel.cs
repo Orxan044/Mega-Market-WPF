@@ -47,46 +47,41 @@ public class LoginViewModel : BaseViewModel
     
         bool check = true;
     
-        UserLogin.Mail = "orxantt044@gmail.com";
-        UserLogin.Password = "Slome2006";
+        //UserLogin.Mail = "orxantt044@gmail.com";
+        //UserLogin.Password = "Slome2006";
+        //UserLogin.Name = "Oktay";
 
 
-        var Users = UserRepository.GetAll();
-        foreach (var user in Users)
-        {
-            bool isPasswordValid = BCrypt.Net.BCrypt.Verify(UserLogin.Password, user.Password);
-            if (user.Mail == UserLogin.Mail && isPasswordValid)
-            {
-                notifier.ShowSuccess("You Are Logged In Correctly");
-                _navigationServices.Navigate<MenyuView, MenyuViewModel>();
-                check = false;
-                //var mainVm = App.Current.MainWindow.DataContext as MainViewModel;                    
-                //var vm = mainVm!.CurrentPage!.DataContext as MenyuViewModel;
-                //vm!.DashBoardClick(obj);
-            }
-
-        }
-
-
-        //if (Validation.IsMail(UserLogin.Mail) && Validation.IsPassword(UserLogin.Password))
+        //var Users = UserRepository.GetAll();
+        //foreach (var user in Users)
         //{
-        //    var Users = UserRepository.GetAll();
-        //    foreach (var user in Users)
+        //    bool isPasswordValid = BCrypt.Net.BCrypt.Verify(UserLogin.Password, user.Password);
+        //    if (user.Mail == UserLogin.Mail && isPasswordValid)
         //    {
-        //        bool isPasswordValid = BCrypt.Net.BCrypt.Verify(UserLogin.Password, user.Password);
-        //        if (user.Mail == UserLogin.Mail && isPasswordValid)
-        //        {
-        //            notifier.ShowSuccess("You Are Logged In Correctly");
-        //            _navigationServices.Navigate<MenyuView, MenyuViewModel>();
-        //            check = false;
-        //            //var mainVm = App.Current.MainWindow.DataContext as MainViewModel;                    
-        //            //var vm = mainVm!.CurrentPage!.DataContext as MenyuViewModel;
-        //            //vm!.DashBoardClick(obj);
-        //        }
-
+        //        notifier.ShowSuccess("You Are Logged In Correctly");
+        //        _navigationServices.Navigate<MenyuView, MenyuViewModel>();
+        //        check = false;
         //    }
+
         //}
-        //else notifier.ShowError("Enter the information correctly !!!");
+
+
+        if (Validation.IsMail(UserLogin.Mail) && Validation.IsPassword(UserLogin.Password))
+        {
+            var Users = UserRepository.GetAll();
+            foreach (var user in Users)
+            {
+                bool isPasswordValid = BCrypt.Net.BCrypt.Verify(UserLogin.Password, user.Password);
+                if (user.Mail == UserLogin.Mail && isPasswordValid)
+                {
+                    notifier.ShowSuccess("You Are Logged In Correctly");
+                    _navigationServices.Navigate<MenyuView, MenyuViewModel>();
+                    check = false;
+                }
+
+            }
+        }
+        else notifier.ShowError("Enter the information correctly !!!");
 
         if (check) notifier.ShowError("Enter the information correctly !!!");
     }

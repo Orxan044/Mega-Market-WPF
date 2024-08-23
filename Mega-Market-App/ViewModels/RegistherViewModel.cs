@@ -29,11 +29,14 @@ public class RegistherViewModel : BaseViewModel
     private int _randomCode;
     private readonly INavigationServices _navigationServices;
     private IRepository<User, UserDbContext> _userRepository;
+    private readonly LoginViewModel _loginViewModel;
 
-    public RegistherViewModel(IRepository<User, UserDbContext> userRepository, INavigationServices navigationServices)
+    public RegistherViewModel(IRepository<User, UserDbContext> userRepository, INavigationServices navigationServices, LoginViewModel loginViewModel)
     {
         _navigationServices = navigationServices;
         _userRepository = userRepository;
+        _loginViewModel = loginViewModel;
+
         SignInCommand = new RelayCommand(SigInClick);
         SignUpCommand = new RelayCommand(SigUpClick);
         SendCodeCommand = new RelayCommand(SendCodeClick);
@@ -95,8 +98,11 @@ public class RegistherViewModel : BaseViewModel
                                 notifier.ShowSuccess("You Have Successfully Registered");
                                 _userRepository.Add(NewUser);
                                 _userRepository.SaveChanges();
-                                NewUser = new();
+                                _loginViewModel.UserLogin = NewUser;
                                 _navigationServices.Navigate<MenyuView, MenyuViewModel>();
+
+                                NewUser = new();
+
                             }
                             else notifier.ShowError("Code was not entered correctly !!!");
                         }

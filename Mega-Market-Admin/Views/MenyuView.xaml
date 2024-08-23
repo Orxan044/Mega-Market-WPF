@@ -53,7 +53,8 @@
                         <TextBlock  Text="DashBoard" FontSize="15" Padding="10 7"/>
                     </StackPanel>
                 </Button>
-                <Button Background="#BCCAF1" BorderBrush="#BCCAF1" Margin="0 2" Height="40" Width="auto" >
+                
+                <Button Command="{Binding MessageCommand}" Background="#BCCAF1" BorderBrush="#BCCAF1" Margin="0 2" Height="40" Width="auto" >
                     <StackPanel Orientation="Horizontal" Width="133" Height="35" Margin="0 0">
                         <material:PackIcon Kind="Sms" Width="25" Height="25" VerticalAlignment="Center" Margin="0 0 0 0"/>
                         <TextBlock  Text="Message" FontSize="15" Padding="10 7"/>
@@ -71,25 +72,18 @@
                         <TextBlock  Text="Products" FontSize="15" Padding="10 7"/>
                     </StackPanel>
                 </Button>
+                
                 <Button Background="#BCCAF1" BorderBrush="#BCCAF1" Margin="0 0" Height="40" Width="auto" >
                     <StackPanel Orientation="Horizontal" Width="133" Height="35" Margin="0 0">
-                        <material:PackIcon Kind="Avalanche" Width="25" Height="25" VerticalAlignment="Center" Margin="0 0 0 0"/>
+                        <material:PackIcon Kind="ChartLine" Width="25" Height="25" VerticalAlignment="Center" Margin="0 0 0 0"/>
                         <TextBlock  Text="Statistics" FontSize="15" Padding="10 7"/>
                     </StackPanel>
                 </Button>
-                <Button Background="#BCCAF1" BorderBrush="#BCCAF1" Margin="0 2" Height="40" Width="auto" >
-                    <StackPanel Orientation="Horizontal" Width="133" Height="35" Margin="0 0">
-                        <material:PackIcon Kind="Motorbike" Width="25" Height="25" VerticalAlignment="Center" Margin="0 0 0 0"/>
-                        <TextBlock  Text="Kargo" FontSize="15" Padding="10 7"/>
-                    </StackPanel>
-                </Button>
-                <Button Background="#BCCAF1" BorderBrush="#BCCAF1" Margin="0 0" Height="40" Width="auto" >
-                    <StackPanel Orientation="Horizontal" Width="133" Height="35" Margin="0 0">
-                        <material:PackIcon Kind="Settings" Width="25" Height="25" VerticalAlignment="Center" Margin="0 0 0 0"/>
-                        <TextBlock  Text="Settings" FontSize="15" Padding="10 7"/>
-                    </StackPanel>
-                </Button>
-                <Button Background="Red" BorderBrush="Red" Margin="0 4" Height="40" Width="auto" Command="{Binding ExitCommand}" >
+                
+                <Separator  Background="White" Margin="0 15" />
+               
+
+                <Button Background="Red" BorderBrush="Red" Margin="0 0" Height="40" Width="auto" Command="{Binding ExitCommand}" >
                     <StackPanel Orientation="Horizontal" Width="133" Height="35" Margin="0 0">
                         <material:PackIcon Kind="ExitRun" Width="25" Height="25" VerticalAlignment="Center" Margin="0 0 0 0"/>
                         <TextBlock  Text="Log Out" FontSize="15" Padding="10 7"/>
@@ -99,7 +93,33 @@
             </StackPanel>
         </Border>
 
-        <Frame Content="{Binding CurrentPage2}" Grid.Column="1" Width="750" Height="500" NavigationUIVisibility="Hidden" ></Frame>
+
+
+        <Grid Grid.Column="1" Background="#41518F" >
+            <Grid.RowDefinitions>
+                <RowDefinition  Height="40" ></RowDefinition>
+                <RowDefinition></RowDefinition>
+            </Grid.RowDefinitions>
+
+            <StackPanel Orientation="Horizontal" VerticalAlignment="Center" HorizontalAlignment="Right" >
+
+                <Button Margin="0 0"  HorizontalAlignment="Right"  Width="35" Height="38" Background="{x:Null}" BorderBrush="{x:Null}" Padding="0" Foreground="Gray" Command="{Binding SettingsCommand}">
+                    <material:PackIcon Kind="Sms" HorizontalAlignment="Center" Height="38" VerticalAlignment="Center" Width="30"/>
+                </Button>
+
+                <Button Margin="0 0"  HorizontalAlignment="Right"  Width="35" Height="38" Background="{x:Null}" BorderBrush="{x:Null}" Padding="0" Foreground="Gray" Command="{Binding CloseCommand}">
+                    <material:PackIcon Kind="Close" HorizontalAlignment="Center" Height="38" VerticalAlignment="Center" Width="30"/>
+                </Button>
+
+            </StackPanel>
+
+            <Frame Content="{Binding CurrentPage2}" Grid.Row="1" Height="460" Width="750" NavigationUIVisibility="Hidden" ></Frame>
+            
+
+        </Grid>
+
+
+        <!--<Frame Content="{Binding CurrentPage2}" Grid.Column="1" Width="750" Height="500" NavigationUIVisibility="Hidden" ></Frame>-->
 
 
     </Grid>
