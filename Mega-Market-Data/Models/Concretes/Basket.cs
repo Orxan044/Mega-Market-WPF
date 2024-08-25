@@ -20,6 +20,7 @@ public class Basket : BaseEntity , INotifyPropertyChanged
 
     public ObservableCollection<ProductItem>? ProductItems { get => productItems; 
         set { productItems = value; OnPropertyChanged(); } }
+
     public double? TotalPayment { get => totalPayment; set { totalPayment = value; OnPropertyChanged(); } }
     public double? ProductTotalPayment { get => productTotalPayment; set { productTotalPayment = value; OnPropertyChanged(); }}
     public double? Discount { get => discount; set { discount = value; OnPropertyChanged(); }}

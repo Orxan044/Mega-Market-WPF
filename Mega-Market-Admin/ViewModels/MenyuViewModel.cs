@@ -26,6 +26,8 @@ public class MenyuViewModel : BaseViewModel
     public RelayCommand MessageCommand { get; set; }
     public RelayCommand CategoriesCommand { get; set; }
     public RelayCommand ProductsCommand { get; set; }
+    public RelayCommand StaticsCommand { get; set; }
+    public RelayCommand HistoryCommand { get; set; }
     public RelayCommand ExitCommand { get; set; }
     #endregion
 
@@ -40,6 +42,8 @@ public class MenyuViewModel : BaseViewModel
         MessageCommand = new RelayCommand(MessageClick);
         CategoriesCommand = new RelayCommand(CategoriesClick);
         ProductsCommand = new RelayCommand(ProductsClick);
+        StaticsCommand = new RelayCommand(StaticsClick);
+        HistoryCommand = new RelayCommand(HistoryClick);
         ExitCommand = new RelayCommand(ExitClick);
         #endregion
 
@@ -47,6 +51,23 @@ public class MenyuViewModel : BaseViewModel
         CurrentPage2.DataContext = App.Container.GetInstance<DashBoardViewModel>();
     }
 
+    private void StaticsClick(object? obj)
+    {
+        CurrentPage2 = App.Container.GetInstance<StaticsView>();
+        CurrentPage2.DataContext = App.Container.GetInstance<StaticViewModel>();
+    }
+
+    private void HistoryClick(object? obj)
+    {
+        CurrentPage2 = App.Container.GetInstance<HistoryView>();
+        CurrentPage2.DataContext = App.Container.GetInstance<HistoryViewModel>();
+    }
+
+    public void CheckClick(object? obj)
+    {
+        CurrentPage2 = App.Container.GetInstance<ChecksView>();
+        CurrentPage2.DataContext = App.Container.GetInstance<CheckViewModel>();
+    }
 
     private void DashBoardClick(object? obj)
     {

@@ -46,6 +46,7 @@ public partial class App : Application
         Container.RegisterSingleton<SplashViewModel>();
         Container.RegisterSingleton<LoginViewModel>();
         Container.RegisterSingleton<RegistherViewModel>();
+        Container.RegisterSingleton<ForgotPasswordViewModel>();
         Container.Register<DashBoradViewModel>();
         Container.RegisterSingleton<MenyuViewModel>();
         Container.RegisterSingleton<CategoriesViewModel>();
@@ -64,6 +65,7 @@ public partial class App : Application
         Container.RegisterSingleton<SplashView>();
         Container.RegisterSingleton<LoginView>();
         Container.RegisterSingleton<RegistherView>();
+        Container.RegisterSingleton<ForgotPasswordView>();
         Container.RegisterSingleton<MenyuView>();
         Container.RegisterSingleton<CategoriesView>();
         Container.RegisterSingleton<ProductsView>();

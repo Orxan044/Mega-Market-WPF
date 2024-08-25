@@ -11,7 +11,7 @@
 
     <Grid Background="#41518F" >
 
-        <TextBlock FontSize="26" Foreground="#CCD7FF" Margin="28,35,0,388" Text="Products" HorizontalAlignment="Left"/>
+        <TextBlock FontSize="26" Foreground="White" Margin="20,1,0,422" Text="Products" HorizontalAlignment="Left"/>
 
         <material:Badged Badge="{material:PackIcon Kind=AddBold}" 
                    
@@ -23,7 +23,7 @@
 
         <TextBox x:Name="txbSearch" HorizontalAlignment="Left" VerticalAlignment="Top"
                     Style="{StaticResource MaterialDesignTextBoxBase}" VerticalContentAlignment="Center"
-                    Width="334" Height="33" Margin="28,95,0,0" 
+                    Width="334" Height="33" Margin="19,54,0,0" 
                     BorderBrush="#769DF7" Background="White" FontSize="14"
                     material:TextFieldAssist.HasClearButton="True"
                     material:TextFieldAssist.UnderlineCornerRadius="15"
@@ -35,13 +35,12 @@
             </material:HintAssist.Hint>
         </TextBox>
 
-        <ListView x:Name="ListView1" FontSize="18" Foreground="Black" ItemsSource="{Binding Products}" Width="750" Height="327" VerticalAlignment="Top" Margin="0,133,0,0">
+        <ListView x:Name="ListView1" FontSize="18" Foreground="Black" ItemsSource="{Binding Products}" Width="750" Height="368" VerticalAlignment="Top" Margin="0,92,0,0">
             <ListView.View>
                 <GridView>
                     <GridViewColumn  Header="Id" DisplayMemberBinding="{Binding Id}" Width="80"></GridViewColumn>
                     <GridViewColumn Header="Name" DisplayMemberBinding="{Binding Name}" Width="auto"></GridViewColumn>
 
-                    <!--<GridViewColumn  Header="Description" DisplayMemberBinding="{Binding Description}" Width="auto"></GridViewColumn>-->
                     <GridViewColumn  Header="Category Id" DisplayMemberBinding="{Binding CategoryId}" Width="auto"></GridViewColumn>
 
                     <GridViewColumn  Header="Quantity" DisplayMemberBinding="{Binding Quantity}" Width="auto"></GridViewColumn>

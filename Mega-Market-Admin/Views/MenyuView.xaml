@@ -47,43 +47,50 @@
                 <Separator Height="0.8" Background="#46558a" Margin="20 30 20 30"/>
 
 
-                <Button Background="#BCCAF1" BorderBrush="#BCCAF1" Margin="0 0" Height="40" Width="auto" Command="{Binding DashBoardCommand}" >
+                <Button Background="#BCCAF1" BorderBrush="#BCCAF1" Margin="0 0" Height="40" Width="143" Command="{Binding DashBoardCommand}" >
                     <StackPanel Orientation="Horizontal" Width="138" Height="35" Margin="0 0 0 0">
                         <material:PackIcon Kind="Home" Width="25" Height="25" VerticalAlignment="Center" Margin="0 0 0 0"/>
                         <TextBlock  Text="DashBoard" FontSize="15" Padding="10 7"/>
                     </StackPanel>
                 </Button>
                 
-                <Button Command="{Binding MessageCommand}" Background="#BCCAF1" BorderBrush="#BCCAF1" Margin="0 2" Height="40" Width="auto" >
+                <Button Command="{Binding MessageCommand}" Background="#BCCAF1" BorderBrush="#BCCAF1" Margin="0 2" Height="40" Width="143" >
                     <StackPanel Orientation="Horizontal" Width="133" Height="35" Margin="0 0">
-                        <material:PackIcon Kind="Sms" Width="25" Height="25" VerticalAlignment="Center" Margin="0 0 0 0"/>
+                        <material:PackIcon Kind="ChatOutline" Width="25" Height="25" VerticalAlignment="Center" Margin="0 0 0 0"/>
                         <TextBlock  Text="Message" FontSize="15" Padding="10 7"/>
                     </StackPanel>
                 </Button>
-                <Button Background="#BCCAF1" BorderBrush="#BCCAF1" Margin="0 0" Height="40" Width="auto" Command="{Binding CategoriesCommand}" >
+                <Button Background="#BCCAF1" BorderBrush="#BCCAF1" Margin="0 0" Height="40" Width="143" Command="{Binding CategoriesCommand}" >
                     <StackPanel Orientation="Horizontal" Width="133" Height="35" Margin="0 0">
                         <material:PackIcon Kind="Category" Width="25" Height="25" VerticalAlignment="Center" Margin="0 0 0 0"/>
                         <TextBlock  Text="Categories" FontSize="15" Padding="10 7"/>
                     </StackPanel>
                 </Button>
-                <Button Background="#BCCAF1" BorderBrush="#BCCAF1" Margin="0 2" Height="40" Width="auto" Command="{Binding ProductsCommand}" >
+                <Button Background="#BCCAF1" BorderBrush="#BCCAF1" Margin="0 2" Height="40" Width="143" Command="{Binding ProductsCommand}" >
                     <StackPanel Orientation="Horizontal" Width="133" Height="35" Margin="0 0">
                         <material:PackIcon Kind="food" Width="25" Height="25" VerticalAlignment="Center" Margin="0 0 0 0"/>
                         <TextBlock  Text="Products" FontSize="15" Padding="10 7"/>
                     </StackPanel>
                 </Button>
-                
-                <Button Background="#BCCAF1" BorderBrush="#BCCAF1" Margin="0 0" Height="40" Width="auto" >
+
+                <Button Command="{Binding StaticsCommand}" Background="#BCCAF1" BorderBrush="#BCCAF1" Margin="0 0" Height="40" Width="143" >
                     <StackPanel Orientation="Horizontal" Width="133" Height="35" Margin="0 0">
-                        <material:PackIcon Kind="ChartLine" Width="25" Height="25" VerticalAlignment="Center" Margin="0 0 0 0"/>
+                        <material:PackIcon Kind="EqualiserVertical" Width="25" Height="25" VerticalAlignment="Center" Margin="0 0 0 0"/>
                         <TextBlock  Text="Statistics" FontSize="15" Padding="10 7"/>
                     </StackPanel>
                 </Button>
-                
+
+                <Button Command="{Binding HistoryCommand}" Background="#BCCAF1" BorderBrush="#BCCAF1" Margin="0 2" Height="40" Width="143" >
+                    <StackPanel Orientation="Horizontal" Width="133" Height="35" Margin="0 0">
+                        <material:PackIcon Kind="History" Width="25" Height="25" VerticalAlignment="Center" Margin="0 0 0 0"/>
+                        <TextBlock  Text="History" FontSize="15" Padding="10 7"/>
+                    </StackPanel>
+                </Button>
+
                 <Separator  Background="White" Margin="0 15" />
                
 
-                <Button Background="Red" BorderBrush="Red" Margin="0 0" Height="40" Width="auto" Command="{Binding ExitCommand}" >
+                <Button Background="Red" BorderBrush="Red" Margin="0 0" Height="40" Width="143" Command="{Binding ExitCommand}" >
                     <StackPanel Orientation="Horizontal" Width="133" Height="35" Margin="0 0">
                         <material:PackIcon Kind="ExitRun" Width="25" Height="25" VerticalAlignment="Center" Margin="0 0 0 0"/>
                         <TextBlock  Text="Log Out" FontSize="15" Padding="10 7"/>
@@ -103,11 +110,11 @@
 
             <StackPanel Orientation="Horizontal" VerticalAlignment="Center" HorizontalAlignment="Right" >
 
-                <Button Margin="0 0"  HorizontalAlignment="Right"  Width="35" Height="38" Background="{x:Null}" BorderBrush="{x:Null}" Padding="0" Foreground="Gray" Command="{Binding SettingsCommand}">
-                    <material:PackIcon Kind="Sms" HorizontalAlignment="Center" Height="38" VerticalAlignment="Center" Width="30"/>
+                <Button Margin="0 0"  HorizontalAlignment="Right"  Width="35" Height="38" Background="{x:Null}" BorderBrush="{x:Null}" Padding="0" Foreground="Gray" Command="{Binding MessageCommand}">
+                    <material:PackIcon Kind="ChatOutline" HorizontalAlignment="Center" Height="38" VerticalAlignment="Center" Width="30"/>
                 </Button>
 
-                <Button Margin="0 0"  HorizontalAlignment="Right"  Width="35" Height="38" Background="{x:Null}" BorderBrush="{x:Null}" Padding="0" Foreground="Gray" Command="{Binding CloseCommand}">
+                <Button Margin="0 0"  HorizontalAlignment="Right"  Width="35" Height="38" Background="{x:Null}" BorderBrush="{x:Null}" Padding="0" Foreground="Gray" Command="{Binding ExitCommand}">
                     <material:PackIcon Kind="Close" HorizontalAlignment="Center" Height="38" VerticalAlignment="Center" Width="30"/>
                 </Button>
 

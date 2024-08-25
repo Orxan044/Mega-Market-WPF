@@ -3,12 +3,70 @@
       xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:lvc="clr-namespace:LiveCharts.Wpf;assembly=LiveCharts.Wpf"
+      xmlns:fa="http://schemas.awesome.incremented/wpf/xaml/fontawesome.sharp"
       xmlns:local="clr-namespace:Mega_Market_Admin.Views"
       mc:Ignorable="d" 
-      d:DesignHeight="450" d:DesignWidth="800"
+      d:DesignHeight="460" d:DesignWidth="750"
       Title="StaticsView">
 
     <Grid Background="#41518F" >
-        
+
+        <TextBlock FontSize="26" Foreground="White" Margin="20,1,0,422" Text="Statics" HorizontalAlignment="Left"/>
+
+        <TextBlock Text="Start date" FontWeight="Bold" Foreground="White" Height="Auto" Width="Auto" Margin="84,55,609,386" ></TextBlock>
+        <DatePicker SelectedDate="{Binding StartDate, Mode=TwoWay}" FontSize="18" Foreground="Yellow" Margin="84,75,459,0" VerticalAlignment="Top" />
+
+        <TextBlock Text="------" FontWeight="Bold" Margin="340,84,377,359" ></TextBlock>
+
+        <TextBlock Text="End date" FontWeight="Bold" Foreground="White" Height="Auto" Width="Auto" Margin="417,55,280,386" ></TextBlock>
+        <DatePicker SelectedDate="{Binding EndDate, Mode=TwoWay}" FontSize="18" Foreground="Yellow" Margin="417,75,128,0" VerticalAlignment="Top" />
+
+        <Button Command="{Binding GetDateTimeCommand}" Height="30" Content="Get" Padding="0 0 0 0" Margin="657,77,48,353"/>
+
+        <Border CornerRadius="20" Padding="35 25" Background="#243771" Margin="10,134,10,10">
+            <Grid>
+                <StackPanel HorizontalAlignment="Center" VerticalAlignment="Bottom" Margin="50 0 0 0" Orientation="Horizontal">
+                    <TextBlock Text="1" Foreground="#717EB2"/>
+                    <TextBlock Text="2" Foreground="#717EB2" Margin="41 0 0 0"/>
+                    <TextBlock Text="3" Foreground="#717EB2" Margin="41 0 0 0"/>
+                    <TextBlock Text="4" Foreground="#717EB2" Margin="41 0 0 0"/>
+                    <TextBlock Text="5" Foreground="#717EB2" Margin="41 0 0 0"/>
+                    <TextBlock Text="6" Foreground="#717EB2" Margin="41 0 0 0"/>
+                    <TextBlock Text="7" Foreground="#717EB2" Margin="41 0 0 0"/>
+                    <TextBlock Text="8" Foreground="#717EB2" Margin="41 0 0 0"/>
+                    <TextBlock Text="9" Foreground="#717EB2" Margin="41 0 0 0"/>
+                    <TextBlock Text="10" Foreground="#717EB2" Margin="41 0 0 0"/>
+                    <TextBlock Text="11" Foreground="#717EB2" Margin="41 0 0 0"/>
+                    <TextBlock Text="12" Foreground="#717EB2" Margin="41 0 0 0"/>
+                </StackPanel>
+
+                <!-- Chart -->
+                <lvc:CartesianChart Series="{Binding SeriesCollection}" Margin="-21,0,0,25">
+                    <lvc:CartesianChart.Background>
+                        <LinearGradientBrush StartPoint="0.5,0" EndPoint="0.5,1">
+                            <GradientStop Color="#26376F" Offset="0"/>
+                            <GradientStop Color="#6A6AE4" Offset="1.5"/>
+                        </LinearGradientBrush>
+                    </lvc:CartesianChart.Background>
+
+                    <lvc:CartesianChart.DataTooltip>
+                        <lvc:DefaultTooltip Background="#24336A" Foreground="#D5E2FF"/>
+                    </lvc:CartesianChart.DataTooltip>
+
+                    <lvc:CartesianChart.AxisX>
+                        <lvc:Axis Title="{Binding XAxis.Title}" Labels="{Binding XAxis.Labels}" Foreground="#717EB2"/>
+                    </lvc:CartesianChart.AxisX>
+
+                    <lvc:CartesianChart.AxisY>
+                        <lvc:Axis Title="{Binding YAxis.Title}" MinValue="{Binding YAxis.MinValue}" MaxValue="{Binding YAxis.MaxValue}" Foreground="#717EB2"/>
+                    </lvc:CartesianChart.AxisY>
+
+                </lvc:CartesianChart>
+            </Grid>
+        </Border>
+
+
+
     </Grid>
 </Page>

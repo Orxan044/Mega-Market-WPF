@@ -23,6 +23,18 @@ public class HistoryViewModel : BaseViewModel , INotifyPropertyChanged
 		set { _histories = value; OnPropertyChanged(); }
 	}
 
+    private int _selectedSortOptionIndex;
+    public int SelectedSortOptionIndex
+    {
+        get { return _selectedSortOptionIndex; }
+        set
+        {
+            _selectedSortOptionIndex = value;
+            OnPropertyChanged(nameof(SelectedSortOptionIndex));
+            SortDailyTotals();
+        }
+    }
+
 
     public RelayCommand ShowCheckCommand { get; set; }
         
@@ -78,7 +90,24 @@ public class HistoryViewModel : BaseViewModel , INotifyPropertyChanged
     }
 
 
+    private void SortDailyTotals()
+    {
+        if (Histories == null) return;
 
+        IEnumerable<History> sortedList = null!;
+        var sortOption = SelectedSortOptionIndex == 0 ? "Ascending" : "Descending";
+
+        if (sortOption == "Ascending")
+        {
+            sortedList = Histories.OrderBy(d => d.Date);
+        }
+        else
+        {
+            sortedList = Histories.OrderByDescending(d => d.Date);
+        }
+
+        Histories = new ObservableCollection<History>(sortedList);
+    }
 
 
 }

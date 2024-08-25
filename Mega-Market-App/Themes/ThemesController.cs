@@ -30,7 +30,7 @@ public static class ThemesController
 
     public static void SetTheme(ThemeTypes theme)
     {
-        string themeName = null;
+        string themeName = null!;
         CurrentTheme = theme;
         switch (theme)
         {

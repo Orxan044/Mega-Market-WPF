@@ -4,11 +4,6 @@ using Mega_Market_Admin.Views;
 using Mega_Market_Data.Data;
 using Mega_Market_Data.Models.Concretes;
 using Mega_Market_Data.Repositoies;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
 using ToastNotifications.Messages;
 
@@ -36,6 +31,9 @@ public class LoginViewModel : BaseViewModel
 
     private void SignInClick(object? obj)
     {
+        AdminLogin.AccountName = "Orxan";
+        AdminLogin.AccountPassword = "OrxanAdmin";
+
         var Admins = _adminRepository.GetAll();
         bool checking = true;
         foreach (var admin in Admins)
@@ -43,6 +41,7 @@ public class LoginViewModel : BaseViewModel
             if (AdminLogin.AccountName == admin.AccountName
                && AdminLogin.AccountPassword == admin.AccountPassword)
             {
+                AdminLogin = admin;
                 notifier.ShowSuccess("You Are Logged In Correctly");
                 checking = false;
                 MainViewModel mainVm = new();

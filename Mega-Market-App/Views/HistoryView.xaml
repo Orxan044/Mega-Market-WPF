@@ -21,14 +21,23 @@
         </Grid.RowDefinitions>
 
 
-        <TextBlock Foreground="Black" Padding="0 5 0 0" Text="History" FontSize="26" FontWeight="Bold" FontFamily="Sitka Heading" Margin="32,5,202,5" Grid.ColumnSpan="3"/>
+        <TextBlock Foreground="Black" Padding="0 5 0 0" Text="History" FontSize="26" FontWeight="Bold" FontFamily="Sitka Heading" Margin="32,5,234,5"/>
+
+        <ComboBox x:Name="cbSortOptions" 
+          Width="150"
+          Height="30" FontSize="15"
+          HorizontalAlignment="Left"
+          SelectedIndex="{Binding SelectedSortOptionIndex}" Margin="166,0,0,0">
+            <ComboBoxItem Content="Date - Ascending" Tag="Ascending" />
+            <ComboBoxItem Content="Date - Descending" Tag="Descending" />
+        </ComboBox>
 
         <ListView Grid.Row="1" FontSize="18" Foreground="Black" ItemsSource="{Binding Histories}" Width="365" Height="460" VerticalAlignment="Center" HorizontalAlignment="Left" x:Name="ListView1" Grid.ColumnSpan="3">
             <ListView.View>
                 <GridView>
                     <GridViewColumn Header="Date" DisplayMemberBinding="{Binding Date, StringFormat='{}{0:dd/MM/yyyy}'}" Width="auto"/>
 
-                    <GridViewColumn Header="Total" DisplayMemberBinding="{Binding TotalAmount, StringFormat='  {0} ₼'}" Width="auto"/>
+                    <GridViewColumn Header="Total" DisplayMemberBinding="{Binding TotalAmount, StringFormat={}{0:0.00} ₼}" Width="auto"/>
 
                     <GridViewColumn Header="Show" Width="120">
                         <GridViewColumn.CellTemplate>

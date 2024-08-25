@@ -22,9 +22,10 @@ public class LoginViewModel : BaseViewModel
     }
     
     
-    public RelayCommand CloseCommand { get; set; }
+    public RelayCommand ForgotPasswordCommand { get; set; }
     public RelayCommand SignInCommand { get; set; }
     public RelayCommand SignUpCommand { get; set; }
+    public RelayCommand CloseCommand { get; set; }
     
     private readonly INavigationServices _navigationServices;
     public IRepository<User, UserDbContext> UserRepository { get; set; }
@@ -37,35 +38,22 @@ public class LoginViewModel : BaseViewModel
     
         UserLogin = new();
     
-        CloseCommand = new RelayCommand(CloseClik);
+        ForgotPasswordCommand = new RelayCommand(ForgotPasswordClick);
         SignInCommand = new RelayCommand(SignInClik);
         SignUpCommand = new RelayCommand(SignUpClik);
+        CloseCommand = new RelayCommand(CloseClik);
     }
-    
+
+    private void ForgotPasswordClick(object? obj)
+    {
+        _navigationServices.Navigate<ForgotPasswordView, ForgotPasswordViewModel>();
+    }
+
     private void SignInClik(object? obj)
     {
     
         bool check = true;
     
-        //UserLogin.Mail = "orxantt044@gmail.com";
-        //UserLogin.Password = "Slome2006";
-        //UserLogin.Name = "Oktay";
-
-
-        //var Users = UserRepository.GetAll();
-        //foreach (var user in Users)
-        //{
-        //    bool isPasswordValid = BCrypt.Net.BCrypt.Verify(UserLogin.Password, user.Password);
-        //    if (user.Mail == UserLogin.Mail && isPasswordValid)
-        //    {
-        //        notifier.ShowSuccess("You Are Logged In Correctly");
-        //        _navigationServices.Navigate<MenyuView, MenyuViewModel>();
-        //        check = false;
-        //    }
-
-        //}
-
-
         if (Validation.IsMail(UserLogin.Mail) && Validation.IsPassword(UserLogin.Password))
         {
             var Users = UserRepository.GetAll();

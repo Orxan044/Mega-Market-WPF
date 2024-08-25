@@ -16,8 +16,8 @@ public class MainViewModel : BaseViewModel, INotifyPropertyChanged
 
     public MainViewModel()
     {
-        _currentPage = App.Container.GetInstance<MenyuView>();
-        _currentPage.DataContext = App.Container.GetInstance<MenyuViewModel>();
+        _currentPage = App.Container.GetInstance<LoginView>();
+        _currentPage.DataContext = App.Container.GetInstance<LoginViewModel>();
     }
 
 }

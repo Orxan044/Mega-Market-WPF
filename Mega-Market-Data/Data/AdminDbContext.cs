@@ -12,4 +12,5 @@ public class AdminDbContext : DbContext
 
     }
     public DbSet<Admin> Admins { get; set; }
+    public DbSet<DailyTotal> DailyTotals{ get; set; }
 }

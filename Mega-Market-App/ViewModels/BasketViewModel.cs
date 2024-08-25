@@ -127,14 +127,16 @@ public class BasketViewModel : BaseViewModel, INotifyPropertyChanged
                 
                 if (SelectedCard is "*Bonus Card" )
                 {
-                    if (bonusBalanceToTotal) { Payment(); _menyuViewModel.BasketClik(obj); }
+                    if (bonusBalanceToTotal)
+                    {
+                        Payment(obj!);
+                        _creditCartViewModel.NewCard.User.BonusBalance -= _basket.TotalPayment;
+                    }
                     else notifier.ShowError("There is not enough money on the Bonus Card !!!");
                 }
                 else 
-                {
-                    Payment();
-                    _menyuViewModel.BasketClik(obj);
-                }
+                    Payment(obj!);
+                
             }
             else notifier.ShowError("Please select Credit Card !!!");
             
@@ -142,7 +144,7 @@ public class BasketViewModel : BaseViewModel, INotifyPropertyChanged
         else notifier.ShowError("Basket is empty. Order Now !!!"); 
     }
 
-    private void Payment()
+    private void Payment(object obj)
     {
         notifier.ShowSuccess("The products were received with great effort. Thank you for choosing us, Good luck !!!");
 
@@ -164,6 +166,7 @@ public class BasketViewModel : BaseViewModel, INotifyPropertyChanged
 
         BuyProductIncrementQuantity(ProductItems!);
         _basketManager.NewBasket();
+        _menyuViewModel.BasketClik(obj);
     }
 
 

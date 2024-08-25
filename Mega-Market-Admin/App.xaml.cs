@@ -31,12 +31,15 @@ public partial class App : Application
         Container.RegisterSingleton<UserDbContext>();
 
         Container.RegisterSingleton<IRepository<Admin, AdminDbContext>, Repository<Admin, AdminDbContext>>();
+        Container.RegisterSingleton<IRepository<DailyTotal, AdminDbContext>, Repository<DailyTotal, AdminDbContext>>();
+
         Container.RegisterSingleton<IRepository<Category, MarketDbContext>, Repository<Category, MarketDbContext>>();
         Container.RegisterSingleton<IRepository<Product, MarketDbContext>, Repository<Product, MarketDbContext>>();
 
         Container.RegisterSingleton<IRepository<User, UserDbContext>, Repository<User, UserDbContext>>();
         Container.RegisterSingleton<IRepository<Message, UserDbContext>, Repository<Message, UserDbContext>>();
         Container.RegisterSingleton<IRepository<History, UserDbContext>, Repository<History, UserDbContext>>();
+        Container.RegisterSingleton<IRepository<ProductHistory, UserDbContext>, Repository<ProductHistory, UserDbContext>>();
 
         Container.RegisterSingleton<INavigationService, NavigationService>();
     }
@@ -53,6 +56,9 @@ public partial class App : Application
         Container.Register<ProductShowViewModel>();
         Container.Register<AddProductViewModel>();
         Container.Register<MessageViewModel>();
+        Container.Register<StaticViewModel>();
+        Container.Register<HistoryViewModel>();
+        Container.Register<CheckViewModel>();
     }
 
     private static void AddViews()
@@ -67,6 +73,9 @@ public partial class App : Application
         Container.RegisterSingleton<ProductShowView>();
         Container.RegisterSingleton<AddProductView>();
         Container.RegisterSingleton<MessageView>();
+        Container.RegisterSingleton<StaticsView>();
+        Container.RegisterSingleton<HistoryView>();
+        Container.RegisterSingleton<ChecksView>();
     }
 
     protected override void OnStartup(StartupEventArgs e)

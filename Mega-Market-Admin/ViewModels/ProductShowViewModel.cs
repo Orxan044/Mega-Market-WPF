@@ -15,7 +15,7 @@ namespace Mega_Market_Admin.ViewModels;
 
 public class ProductShowViewModel : BaseViewModel, INotifyPropertyChanged
 {
-    public object Id { get; set; }
+    public object? Id { get; set; }
     private Product? _selectedProduct;
     private Category? selectedCategory;
     private MenyuViewModel _viewModel;

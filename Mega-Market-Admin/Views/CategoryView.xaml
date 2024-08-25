@@ -11,7 +11,7 @@
 
     <Grid Background="#41518F">
 
-        <TextBlock FontSize="26" Foreground="#CCD7FF" Margin="13,17,0,408" Text="Categories" HorizontalAlignment="Left" Width="126"/>
+        <TextBlock FontSize="26" Foreground="White" Margin="20,1,0,422" Text="Categories" HorizontalAlignment="Left" Width="126"/>
 
         <material:Badged Badge="{material:PackIcon Kind=AddBold}" 
                     HorizontalAlignment="Right" VerticalAlignment="Top"

@@ -36,7 +36,7 @@
                 </StackPanel>
 
                 <StackPanel Grid.Row="1" VerticalAlignment="Center" Height="153">
-                    <TextBlock LineHeight="28" TextWrapping="Wrap" TextAlignment="Center"  FontSize="18" Text="If you have an account, you can login by pressing the button" Opacity="0.8"   />
+                    <TextBlock LineHeight="28" TextWrapping="Wrap" TextAlignment="Center"  FontSize="18" Text="If you have an account, you can login by pressing the button" Opacity="0.8" Width="383"   />
                     <Button VerticalAlignment="Center" Margin="15"   Background="#ff920f" BorderBrush="#ff920f" Content="Sign In" Width="200" FontSize="18" Command="{Binding SignInCommand}" />
                 </StackPanel>
             </Grid>
