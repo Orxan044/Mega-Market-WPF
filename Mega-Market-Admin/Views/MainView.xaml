@@ -6,7 +6,7 @@
         xmlns:local="clr-namespace:Mega_Market_Admin.Views"
         mc:Ignorable="d" WindowStyle="None" ResizeMode="NoResize" WindowStartupLocation="CenterScreen"
         Title="MainView" Height="500" Width="900"       
-        Icon="pack://application:,,,/Mega-Market-Admin;component/Photos/mLogo.png">
+        Icon="pack://application:,,,/Mega-Market-Admin;component/Photos/computer.png">
 
     <Grid>
         <Frame Content="{Binding CurrentPage}" NavigationUIVisibility="Hidden" ></Frame>

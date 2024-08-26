@@ -29,7 +29,6 @@ public partial class App : Application
         Container.RegisterSingleton<BasketManager>();
 
 
-
         Container.RegisterSingleton<IRepository<User, UserDbContext>, Repository<User, UserDbContext>>();
         Container.RegisterSingleton<IRepository<CreditCart, UserDbContext>, Repository<CreditCart, UserDbContext>>();
         Container.RegisterSingleton<IRepository<History, UserDbContext>, Repository<History, UserDbContext>>();
@@ -81,8 +80,8 @@ public partial class App : Application
     protected override void OnStartup(StartupEventArgs e)
     {
 
-        var mainView = Container.GetInstance<MainView>();
-        mainView.DataContext = Container.GetInstance<MainViewModel>();
+        var mainView = Container.GetInstance<SplashView>();
+        mainView.DataContext = Container.GetInstance<SplashViewModel>();
         mainView.Show();
         base.OnStartup(e);
     }

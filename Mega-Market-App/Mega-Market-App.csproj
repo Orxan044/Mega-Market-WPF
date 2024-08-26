@@ -7,6 +7,7 @@
     <Nullable>enable</Nullable>
     <ImplicitUsings>enable</ImplicitUsings>
     <UseWPF>true</UseWPF>
+    <UserSecretsId>18d04f18-4105-4ac6-aeed-d4b7148b58c4</UserSecretsId>
   </PropertyGroup>
 
   <ItemGroup>
@@ -32,6 +33,7 @@
   		<PrivateAssets>all</PrivateAssets>
   		<IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
   	</PackageReference>
+  	<PackageReference Include="Microsoft.Extensions.Configuration.UserSecrets" Version="6.0.1" />
   	<PackageReference Include="Microsoft.Xaml.Behaviors.Wpf" Version="1.1.122" />
   	<PackageReference Include="PdfFormFillUpUtility" Version="1.0.0" />
   	<PackageReference Include="PDFsharp" Version="6.1.1" />

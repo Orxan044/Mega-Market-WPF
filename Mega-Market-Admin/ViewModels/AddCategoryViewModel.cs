@@ -38,14 +38,22 @@ public class AddCategoryViewModel : BaseViewModel, INotifyPropertyChanged
 
     private void AddCategoryClick(object? obj)
     {
-        if (NewCategory.Name is not null)
+        try
         {
-            _categoryRepository.Add(NewCategory);
-            _categoryRepository.SaveChanges();
-            notifier.ShowSuccess("The Category Has Been Adding Successfully");
-            NewCategory = new();
+            if (NewCategory.Name is not null)
+            {
+                _categoryRepository.Add(NewCategory);
+                _categoryRepository.SaveChanges();
+                notifier.ShowSuccess("The Category Has Been Adding Successfully");
+                NewCategory = new();
+            }
+            else notifier.ShowError("New Category Name Cannot be Null !!!");
         }
-        else notifier.ShowError("New Category Name Cannot be Null !!!");
+        catch (Exception)
+        {
+
+            notifier.ShowError("New Category Name Cannot be Null !!!");
+        }
     }
 
 

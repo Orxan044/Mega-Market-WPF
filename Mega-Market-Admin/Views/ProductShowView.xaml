@@ -27,7 +27,7 @@
         <TextBox Text="{Binding SelectedProduct.Quantity}" Width="160" Margin="374,339,216,64" FontSize="18" BorderBrush="#C5C8CC" material:HintAssist.FloatingOffset="0,-20" material:HintAssist.Hint="Quantity" Style="{StaticResource MaterialDesignFloatingHintTextBox}" />
         <TextBox Text="{Binding SelectedProduct.Price}" Width="160" Margin="550,339,40,64" FontSize="18" BorderBrush="#C5C8CC" material:HintAssist.FloatingOffset="0,-20" material:HintAssist.Hint="Price" Style="{StaticResource MaterialDesignFloatingHintTextBox}" ></TextBox>
 
-        <CheckBox IsChecked="{Binding SelectedProduct.IsSpecial}" Height="30" Width="100" Content="Special" FontSize="18" Margin="370,412,280,58" ></CheckBox>
+        <CheckBox IsChecked="{Binding SelectedProduct.IsSpecial}" Height="30" Width="100" Content="Special" FontSize="18" Margin="249,418,401,12" ></CheckBox>
 
         <Button Command="{Binding UpdateCommand}" Background="Yellow" Content="Update Product" FontSize="18" BorderBrush="Yellow" Margin="375,418,206,10" />
         <Button Command="{Binding DeleteCommand}" Background="Red" Content="Delete Product" FontSize="18" BorderBrush="Red" Margin="550,419,34,9" />

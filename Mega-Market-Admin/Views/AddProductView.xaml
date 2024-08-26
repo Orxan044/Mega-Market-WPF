@@ -19,17 +19,17 @@
 
         <Image Source="{Binding NewProduct.ImagePath}" Width="320" Margin="28,85,402,85" />
 
-        <TextBox Text="{Binding NewProduct.ImagePath}" Width="340" Margin="370,84,40,317" FontSize="18" BorderBrush="#C5C8CC" material:HintAssist.FloatingOffset="0,-20" material:HintAssist.Hint="Image Path" Style="{StaticResource MaterialDesignFloatingHintTextBox}" />
-        <TextBox Text="{Binding NewProduct.Name}" Width="340" Margin="370,148,40,253" FontSize="18" BorderBrush="#C5C8CC" material:HintAssist.FloatingOffset="0,-20" material:HintAssist.Hint="Name" Style="{StaticResource MaterialDesignFloatingHintTextBox}" />
-        <TextBox Text="{Binding NewProduct.Description}" Width="340" Margin="370,212,40,189" FontSize="18" BorderBrush="#C5C8CC" material:HintAssist.FloatingOffset="0,-20" material:HintAssist.Hint="Description" Style="{StaticResource MaterialDesignFloatingHintTextBox}" />
+        <TextBox Text="{Binding NewProduct.ImagePath}" Width="340" Margin="370,73,40,328" FontSize="18" BorderBrush="#C5C8CC" material:HintAssist.FloatingOffset="0,-20" material:HintAssist.Hint="Image Path" Style="{StaticResource MaterialDesignFloatingHintTextBox}" />
+        <TextBox Text="{Binding NewProduct.Name}" Width="340" Margin="371,138,39,263" FontSize="18" BorderBrush="#C5C8CC" material:HintAssist.FloatingOffset="0,-20" material:HintAssist.Hint="Name" Style="{StaticResource MaterialDesignFloatingHintTextBox}" />
+        <TextBox Text="{Binding NewProduct.Description}" Width="340" Margin="370,206,40,195" FontSize="18" BorderBrush="#C5C8CC" material:HintAssist.FloatingOffset="0,-20" material:HintAssist.Hint="Description" Style="{StaticResource MaterialDesignFloatingHintTextBox}" />
 
-        <ComboBox ItemsSource="{Binding Categories}" SelectedItem="{Binding SelectedCategory}"  Width="340" FontSize="18" Height="54" Margin="370,276,40,0" VerticalAlignment="Top" material:HintAssist.Hint="Selected Category" material:HintAssist.FloatingOffset="0,-20"  Style="{StaticResource MaterialDesignFloatingHintComboBox}" />
+        <ComboBox ItemsSource="{Binding Categories}" SelectedItem="{Binding SelectedCategory}"  Width="340" FontSize="18" Height="54" Margin="370,269,40,0" VerticalAlignment="Top" material:HintAssist.Hint="Selected Category" material:HintAssist.FloatingOffset="0,-20"  Style="{StaticResource MaterialDesignFloatingHintComboBox}" />
 
-        <TextBox Text="{Binding NewProduct.Quantity}" Width="160" Margin="370,335,220,68" FontSize="18" BorderBrush="#C5C8CC" material:HintAssist.FloatingOffset="0,-20" material:HintAssist.Hint="Quantity" Style="{StaticResource MaterialDesignFloatingHintTextBox}" />
-        <TextBox Text="{Binding NewProduct.Price}" Width="160" Margin="550,335,40,68" FontSize="18" BorderBrush="#C5C8CC" material:HintAssist.FloatingOffset="0,-20" material:HintAssist.Hint="Price" Style="{StaticResource MaterialDesignFloatingHintTextBox}" />
+        <TextBox Text="{Binding NewProduct.Quantity}" Width="160" Margin="370,329,220,74" FontSize="18" BorderBrush="#C5C8CC" material:HintAssist.FloatingOffset="0,-20" material:HintAssist.Hint="Quantity" Style="{StaticResource MaterialDesignFloatingHintTextBox}" />
+        <TextBox Text="{Binding NewProduct.Price}" Width="160" Margin="550,330,40,73" FontSize="18" BorderBrush="#C5C8CC" material:HintAssist.FloatingOffset="0,-20" material:HintAssist.Hint="Price" Style="{StaticResource MaterialDesignFloatingHintTextBox}" />
 
-        <CheckBox IsChecked="{Binding NewProduct.IsSpecial}" Height="30" Width="100" Content="Special" FontSize="18" Margin="370,412,280,58" ></CheckBox>
+        <CheckBox IsChecked="{Binding NewProduct.IsSpecial}" Height="30" Width="100" Content="Special" FontSize="18" Margin="375,412,275,18" ></CheckBox>
 
-        <Button Command="{Binding AddCommand}" Content="Add Product" FontSize="18" Margin="426,412,96,16" />
+        <Button Command="{Binding AddCommand}" Content="Add Product" FontSize="18" Margin="483,412,39,16" />
     </Grid>
 </Page>

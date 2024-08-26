@@ -10,6 +10,7 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <None Remove="Photos\computer.png" />
     <None Remove="Photos\mLogo.png" />
     <None Remove="Photos\whiteBackGround.jpg" />
   </ItemGroup>
@@ -30,6 +31,7 @@
 	</ItemGroup>
 
 	<ItemGroup>
+	  <Resource Include="Photos\computer.png" />
 	  <Resource Include="Photos\mLogo.png" />
 	  <Resource Include="Photos\whiteBackGround.jpg" />
 	</ItemGroup>

@@ -87,7 +87,7 @@
                                     TextTrimming="CharacterEllipsis" 
                                     VerticalAlignment="Center" 
                                     HorizontalAlignment="Center"
-                                    FontSize="15" Height="36" Width="200">
+                                    FontSize="15" Height="46" Width="200">
                                     <TextBlock.Text>
                                         <MultiBinding StringFormat="{}  {0}, {1}">
                                             <Binding Path="Name" />

@@ -31,7 +31,7 @@ public class MailServices
         var smtp = new SmtpClient("smtp.gmail.com")
         {
             Port = 587,
-            Credentials = new NetworkCredential("n.resul11@gmail.com", "ljgb fqte vzss ncxk"),
+            Credentials = new NetworkCredential("logmanquliyev33@gmail.com", "rykn paby iqnf madd"),
             EnableSsl = true,
         };
 
@@ -39,7 +39,7 @@ public class MailServices
         {
             Subject = subject,
             Body = body,
-            From = new MailAddress("n.resul11@gmail.com"),
+            From = new MailAddress("logmanquliyev33@gmail.com"),
             IsBodyHtml = true,
         };
 

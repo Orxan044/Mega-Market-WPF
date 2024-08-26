@@ -56,11 +56,17 @@ public class CheckViewModel : BaseViewModel, INotifyPropertyChanged
     public ObservableCollection<ProductHistory> Products { get => products!; set { products = value; OnPropertyChanged(); } }
 
     private IRepository<ProductHistory, UserDbContext> _productHistoryRepository;
+    private readonly LoginViewModel _loginViewModel;
+    private User _user = new();
 
-    public  RelayCommand PdfToMailCommand { get; set; }
-    public CheckViewModel(IRepository<ProductHistory, UserDbContext> productHistoryRepository)
+    public RelayCommand PdfToMailCommand { get; set; }
+    public CheckViewModel(IRepository<ProductHistory, UserDbContext> productHistoryRepository, LoginViewModel loginViewModel)
     {
         _productHistoryRepository = productHistoryRepository;
+        _loginViewModel = loginViewModel;
+
+        UserCheck();
+
         History = new();
         Time = History.Date;
         Total = History.TotalAmount;
@@ -88,6 +94,7 @@ public class CheckViewModel : BaseViewModel, INotifyPropertyChanged
 
     public void CreatePdf()
     {
+
         string tempPath = Path.GetTempPath();
         string filename = Path.Combine(tempPath, "ProductCheck.pdf");
 
@@ -147,10 +154,10 @@ public class CheckViewModel : BaseViewModel, INotifyPropertyChanged
         try
         {
             MailServices.SendMail(
-                "orxantt044@gmail.com",
+                _user.Mail!,
                 "Mega Market Products Check",
                 "Please find the attached Product Check PDF.",
-                filename 
+                filename
             );
 
             notifier.ShowSuccess("Email Sent Successfully");
@@ -158,6 +165,17 @@ public class CheckViewModel : BaseViewModel, INotifyPropertyChanged
         catch (Exception)
         {
             notifier.ShowError("Something went wrong with the mail. Please try again.");
+        }
+    }
+
+    void UserCheck()
+    {
+        foreach (var user in _loginViewModel.UserRepository.GetAll())
+        {
+            if (_loginViewModel.UserLogin.Mail == user.Mail)
+            {
+                _user = user;
+            }
         }
     }
 }

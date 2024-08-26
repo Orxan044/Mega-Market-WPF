@@ -57,6 +57,7 @@ public class AddProductViewModel : BaseViewModel
                 notifier.ShowSuccess("The Category Has Been Adding Successfully");
                 _viewModel.ProductsClick(obj);
             }
+            else notifier.ShowError("The Category Has Been Not Adding");
         }
         catch (Exception)
         {
